@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
+   <!-- <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple_500"
-        android:id="@+id/toolbar" />
+        android:id="@+id/toolbar" /> -->
 
     <Button
         android:id="@+id/send"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="591dp"
+        android:layout_marginBottom="407dp"
         android:text="SEND" />
 
     <Button

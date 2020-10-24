@@ -40,24 +40,25 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.MyViewHolder>
         return vh;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        holder.icon.setImageIcon(Icon.createWithContentUri(iconsList.get(position)));
+        //holder.icon.setImageIcon(Icon.createWithContentUri(iconsList.get(position)));
+        holder.icon.setText(iconsList.get(position));
         holder.name.setText(fnameList.get(position));
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "ok", Toast.LENGTH_LONG);
+
+                Toast.makeText(mContext, "ok", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageView icon;
+        public TextView icon;
         public  TextView name;
         RelativeLayout relativeLayout;
         public MyViewHolder(View v)

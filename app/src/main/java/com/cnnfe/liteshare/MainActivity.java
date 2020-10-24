@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
 
         send = (Button) findViewById(R.id.send);
         receive = (Button) findViewById(R.id.receive);
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        toolbar.setTitle("Get Set Share...");
-        toolbar.setLogo(R.drawable.ic_baseline_mobile_screen_share_24);
-        setSupportActionBar(toolbar);
+        //toolbar.setTitle("Get Set Share...");
+        //toolbar.setLogo(R.drawable.ic_baseline_mobile_screen_share_24);
+        //setSupportActionBar(toolbar);
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
