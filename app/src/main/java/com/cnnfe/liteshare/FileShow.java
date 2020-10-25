@@ -23,7 +23,7 @@ import java.util.List;
 public class FileShow extends ListActivity {
     private PackageManager packageManager = null;
     private List<ApplicationInfo> applist = null;
-    private AppAdapter listadapter = null;
+    private AddAdapter listadapter = null;
 
     @Override
 
@@ -62,7 +62,7 @@ public class FileShow extends ListActivity {
     private List<ApplicationInfo> checkForLaunchIntent(List<ApplicationInfo> list) {
         ArrayList<ApplicationInfo> applist = new ArrayList<ApplicationInfo>();
 
-        for (ApplicationInfo info: list) {
+        for (ApplicationInfo info : list) {
 
             try {
 
@@ -86,7 +86,7 @@ public class FileShow extends ListActivity {
 
             applist = checkForLaunchIntent(packageManager.getInstalledApplications(PackageManager.GET_META_DATA));
 
-            listadapter = new AppAdapter(FileShow.this, R.layout.list_item, applist);
+            listadapter = new AddAdapter(FileShow.this, R.layout.list_item, applist);
             return null;
         }
 

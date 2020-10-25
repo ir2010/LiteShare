@@ -88,7 +88,9 @@ public class FileActivity extends AppCompatActivity
         apps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseFile("application/*");
+
+                //chooseFile("application/*");
+                startActivity(new Intent(FileActivity.this, FileShow.class));
             }
         });
 
@@ -204,7 +206,7 @@ public class FileActivity extends AppCompatActivity
                 //disable all the buttons
                 docs.setEnabled(false);
                 images.setEnabled(false);
-                apps.setEnabled(false);
+               // apps.setEnabled(false);
                 audios.setEnabled(false);
                 videos.setEnabled(false);
             }
