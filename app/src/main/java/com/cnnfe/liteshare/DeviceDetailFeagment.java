@@ -4,7 +4,6 @@ package com.cnnfe.liteshare;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.WpsInfo;
@@ -111,12 +110,12 @@ public class DeviceDetailFeagment extends Fragment implements ConnectionInfoList
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending: " + uri);
         Log.d(WiFiDirectActivity.TAG, "Intent----------- " + uri);
-        Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
-        serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
-        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS,
+        Intent serviceIntent = new Intent(getActivity(), FileTransferSevice.class);
+        serviceIntent.setAction(FileTransferSevice.ACTION_SEND_FILE);
+        serviceIntent.putExtra(FileTransferSevice.EXTRAS_FILE_PATH, uri.toString());
+        serviceIntent.putExtra(FileTransferSevice.EXTRAS_GROUP_OWNER_ADDRESS,
                 info.groupOwnerAddress.getHostAddress());
-        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
+        serviceIntent.putExtra(FileTransferSevice.EXTRAS_GROUP_OWNER_PORT, 8988);
         getActivity().startService(serviceIntent);
     }
 
