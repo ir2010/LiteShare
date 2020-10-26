@@ -1,12 +1,13 @@
 package com.cnnfe.liteshare;
 
 
-
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
@@ -21,6 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.cnnfe.liteshare.DeviceListFragment.DeviceActionListener;
 
@@ -42,6 +45,9 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
     private final IntentFilter intentFilter = new IntentFilter();
     private Channel channel;
     private BroadcastReceiver receiver = null;
+
+    private LocationSettingsRequest.Builder builder;
+    private final int REQUEST_CHECK_CODE = 8989;
 
     /**
      * @param isWifiP2pEnabled the isWifiP2pEnabled to set
@@ -133,6 +139,16 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
                 final DeviceListFragment fragment = (DeviceListFragment) getFragmentManager()
                         .findFragmentById(R.id.frag_list);
                 fragment.onInitiateDiscovery();
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return TODO;
+                }
                 manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
 
                     @Override
