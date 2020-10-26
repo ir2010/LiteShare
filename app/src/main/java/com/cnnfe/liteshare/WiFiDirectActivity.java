@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -23,7 +24,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 
 import com.cnnfe.liteshare.DeviceListFragment.DeviceActionListener;
 
@@ -139,6 +153,7 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
                 final DeviceListFragment fragment = (DeviceListFragment) getFragmentManager()
                         .findFragmentById(R.id.frag_list);
                 fragment.onInitiateDiscovery();
+
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     //    ActivityCompat#requestPermissions
@@ -147,7 +162,8 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
-                    return TODO;
+                    locationWork();
+                    return true;
                 }
                 manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {
 
@@ -169,6 +185,47 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
         }
     }
 
+    private void locationWork() {
+        LocationRequest request = LocationRequest.create();    //parameters to determine level of accuracy of location requests
+        request.setInterval(1500);  //sets the rate at which your app prefers to receive location updates
+        request.setFastestInterval(5000);  //fastest rate in at which your app can handle location updates
+        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        //current location settings
+        builder = new LocationSettingsRequest.Builder()
+                .addLocationRequest(request);
+
+
+        SettingsClient client = LocationServices.getSettingsClient(this);
+        Task<LocationSettingsResponse> result = client.checkLocationSettings(builder.build());
+
+
+        //resolving location settings if not satisfied
+        result.addOnCompleteListener(task -> {
+
+            try {
+                task.getResult(ApiException.class);
+            } catch (ApiException e) {
+                switch (e.getStatusCode()) {
+                    case LocationSettingsStatusCodes
+                            .RESOLUTION_REQUIRED:
+
+                        try {
+                            ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                            resolvableApiException.startResolutionForResult(WiFiDirectActivity.this, REQUEST_CHECK_CODE);
+                        } catch (IntentSender.SendIntentException sendIntentException) {
+                            sendIntentException.printStackTrace();
+                        }
+                        break;
+
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE: {
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void showDetails(WifiP2pDevice device) {
         DeviceDetailFeagment fragment = (DeviceDetailFeagment) getFragmentManager()
@@ -179,6 +236,17 @@ public class WiFiDirectActivity extends Activity implements ChannelListener, Dev
 
     @Override
     public void connect(WifiP2pConfig config) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            locationWork();
+            return;
+        }
         manager.connect(channel, config, new ActionListener() {
 
             @Override
