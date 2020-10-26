@@ -16,7 +16,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 
-class FileTransferService extends IntentService{       //file transfer was initially public
+public class FileTransferSevice extends IntentService{       //file transfer was initially public
 
 
     private static final int SOCKET_TIMEOUT = 5000;
@@ -29,10 +29,10 @@ class FileTransferService extends IntentService{       //file transfer was initi
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public FileTransferService(String name) {
+    public FileTransferSevice(String name) {
         super(name);
     }
-    public FileTransferService() {
+    public FileTransferSevice() {
         super("FileTransferServices");
     }
 
