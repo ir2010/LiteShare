@@ -13,7 +13,6 @@ import android.net.wifi.p2p.WifiP2pManager.PeerListListener;
 import android.os.Build;
 import android.util.Log;
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)  //new
 public class WiFiDirectBroadcastReceiver<action> extends BroadcastReceiver {
 
 

@@ -27,8 +27,6 @@ public class AddAdapter extends ArrayAdapter<ApplicationInfo> {
         this.applist = objects;
 
         packageManager = context.getPackageManager();
-
-
     }
     @Override
 

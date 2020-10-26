@@ -33,10 +33,10 @@ import com.example.android.wifidirect.DeviceListFragment.DeviceActionListener;
  * The application should also register a BroadcastReceiver for notification of
  * WiFi state related events.
  */
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH) // different from original
+
 public class WiFiDirectActivity extends Activity implements ChannelListener, DeviceActionListener {
 
-    public static final String TAG = "wifidirectdemo";
+    public static final String TAG = "wifidirect";
     private WifiP2pManager manager;
     private boolean isWifiP2pEnabled = false;
     private boolean retryChannel = false;

@@ -17,7 +17,6 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-@TargetApi(Build.VERSION_CODES.CUPCAKE)   //this is not there in original code
 public class FileTransferService extends IntentService{
 
 
