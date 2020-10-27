@@ -1,35 +1,34 @@
-package com.cnnfe.liteshare;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.cnnfe.liteshare.File_list;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.cnnfe.liteshare.File_list.AppAdapter;
+import com.cnnfe.liteshare.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileShow extends ListActivity {
+public class AppShow extends ListActivity
+{
     private PackageManager packageManager = null;
     private List<ApplicationInfo> applist = null;
-    private AddAdapter listadapter = null;
+    private AppAdapter listadapter = null;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_file_show);
 
         packageManager = getPackageManager();
         new LoadApplications().execute();
@@ -52,17 +51,17 @@ public class FileShow extends ListActivity {
             }
         } catch (ActivityNotFoundException e) {
 
-            Toast.makeText(FileShow.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(AppShow.this, e.getMessage(), Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
-            Toast.makeText(FileShow.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(AppShow.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     private List<ApplicationInfo> checkForLaunchIntent(List<ApplicationInfo> list) {
         ArrayList<ApplicationInfo> applist = new ArrayList<ApplicationInfo>();
 
-        for (ApplicationInfo info: list) {
+        for (ApplicationInfo info : list) {
 
             try {
 
@@ -86,7 +85,7 @@ public class FileShow extends ListActivity {
 
             applist = checkForLaunchIntent(packageManager.getInstalledApplications(PackageManager.GET_META_DATA));
 
-            listadapter = new AddAdapter(FileShow.this, R.layout.list_item, applist);
+            listadapter = new AppAdapter(AppShow.this, R.layout.list_item, applist);
             return null;
         }
 
@@ -102,7 +101,7 @@ public class FileShow extends ListActivity {
         @Override
         protected void onPreExecute() {
 
-            progress = ProgressDialog.show(FileShow.this, null, "Loading apps info...");
+            progress = ProgressDialog.show(AppShow.this, null, "Loading apps info...");
             super.onPreExecute();
         }
     }

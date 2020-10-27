@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.cnnfe.liteshare.File_list.FileActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     Button send, receive;

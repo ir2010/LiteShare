@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare;
+package com.cnnfe.liteshare.File_list;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -12,16 +12,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.cnnfe.liteshare.R;
+
 import java.util.List;
 
-public class AddAdapter extends ArrayAdapter<ApplicationInfo> {
+public class AppAdapter extends ArrayAdapter<ApplicationInfo> {
 
     private List<ApplicationInfo> applist = null;
 
     private Context context;
 
     private PackageManager packageManager;
-    public AddAdapter(@NonNull Context context, int resource,List<ApplicationInfo> objects) {
+    public AppAdapter(@NonNull Context context, int resource, List<ApplicationInfo> objects) {
         super(context, resource,objects);
         this.context = context;
         this.applist = objects;

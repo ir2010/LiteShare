@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare;
+package com.cnnfe.liteshare.File_list;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,12 +13,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.cnnfe.liteshare.Connect_devices.DevicesActivity;
+import com.cnnfe.liteshare.MainActivity;
+import com.cnnfe.liteshare.R;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.ArrayList;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -29,6 +30,7 @@ public class FileActivity extends AppCompatActivity
     private static final int CHOOSE_FILE = 1;
 
     Button docs, images, audios, videos, apps;
+    TextView selected_files;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -41,6 +43,7 @@ public class FileActivity extends AppCompatActivity
         audios = (Button) findViewById(R.id.audios);
         videos = (Button) findViewById(R.id.videos);
         apps = (Button) findViewById(R.id.apps);
+        selected_files = (TextView) findViewById(R.id.selected_files);
 
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -88,7 +91,9 @@ public class FileActivity extends AppCompatActivity
         apps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseFile("application/*");
+
+                //chooseFile("application/*");
+                startActivity(new Intent(FileActivity.this, AppShow.class));
             }
         });
 
@@ -204,7 +209,7 @@ public class FileActivity extends AppCompatActivity
                 //disable all the buttons
                 docs.setEnabled(false);
                 images.setEnabled(false);
-                apps.setEnabled(false);
+               // apps.setEnabled(false);
                 audios.setEnabled(false);
                 videos.setEnabled(false);
             }
