@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_light_background"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/splashbg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1b05f9">
+
+            <LinearLayout
+                android:id="@+id/splash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="149dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_launcher"
+                    app:srcCompat="@drawable/mainicon" />
+
+                <TextView
+                    android:id="@+id/splashTexts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/app_name"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/splashTextss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:text="Get..Set..Share"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="#fff" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                style="@android:style/Widget.Material.ProgressBar.Horizontal"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/splash"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="50dp"
+                android:indeterminate="true"
+                android:indeterminateTint="#fff"
+                tools:targetApi="lollipop" />
+
+
+            <LinearLayout
+                android:id="@+id/splashh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="28dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/splashTexty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="10dp"
+                    android:text="Soon opening"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+                    android:textColor="@color/cardview_light_background"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/layout_welcome_page_1_splash_image"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/layout_welcome_page_1_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="#F91B05"
+                android:textSize="@dimen/font_size_big" />
+
+            <TextView
+                style="@style/TextAppearance.Secondary.Big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/text_welcome"
+                android:textColor="@color/colorDivider" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/header_default_device_container"
+            android:background="#1B05F9"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:layout_margin="0dp"
+            >
+
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="@dimen/icon_size_list_giant"
+                android:layout_height="@dimen/icon_size_list_giant"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:id="@+id/layout_profile_picture_image_default"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/layout_profile_picture_image_preferred"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?roundSelector" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end|bottom"
+                    android:background="?rippleBackground"
+                    android:padding="3dp"
+                    app:tint="@android:color/white" />
+
+            </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/header_default_device_name_text"
+                style="@style/TextAppearance.Primary.Big.SingleLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/text_unknown"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/header_default_device_version_text"
+                style="@style/TextAppearance.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorDivider" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="backgroundButton" format="reference" />
+    <attr name="backgroundDialog" format="reference" />
+    <attr name="backgroundEdgeAction" format="reference" />
+    <attr name="backgroundGradient" format="reference" />
+    <attr name="backgroundGradientBottom" format="reference" />
+    <attr name="backgroundGradientTop" format="reference" />
+    <attr name="backgroundPopupMenu" format="reference" />
+    <attr name="colorDonation" format="reference" />
+    <attr name="colorTranslucent" format="reference" />
+    <attr name="colorDivider" format="reference" />
+    <attr name="colorPassive" format="reference" />
+    <attr name="colorPrimaryDark23" format="reference" /> <!-- Marshmallow devices use dark tint color -->
+    <attr name="colorSelection" format="reference" />
+    <attr name="contentShowingBackground" format="reference" />
+    <attr name="fastScrollBackground" format="reference" />
+    <attr name="rectSelector" format="reference" />
+    <attr name="rippleBackground" format="reference" />
+    <attr name="roundSelector" format="reference" />
+    <attr name="roundProgressBar" format="reference" />
+    <attr name="roundProgressBarShape" format="reference" />
+    <attr name="selectionColor" format="reference" />
+    <attr name="selectionAccentColor" format="reference" />
+    <attr name="selectableItemBackground" format="reference" />
+    <attr name="snackbarBackground" format="reference" />
+    <attr name="stateSelectedImage" format="reference" />
+    <attr name="stateSelectedImageRounded" format="reference" />
+    <attr name="stateSelectedImageRoundedGuiding" format="reference" />
+    <attr name="stateSelectedImageSquare" format="reference" />
+    <attr name="statusBarColor" format="reference" />
+    <attr name="useLightStatusBar" format="boolean" />
+
+    <plurals name="ques_deleteFile">
+        <item quantity="one">Do you want to delete this file?</item>
+        <item quantity="other">Do you want to delete %d files?</item>
+    </plurals>
+    <plurals name="text_fileReceiveCompletedSummary">
+        <item quantity="one">%d file has been received</item>
+        <item quantity="other">%d files have been received</item>
+    </plurals>
+    <plurals name="text_removeQueueSummary">
+        <item quantity="one">This pending transfer will be removed</item>
+        <item quantity="other">%d pending transfers will be removed</item>
+    </plurals>
+    <plurals name="ques_receiveMultipleFiles">
+        <item quantity="one">Receive this file?</item>
+        <item quantity="other">Receive %d files?</item>
+    </plurals>
+    <plurals name="text_files">
+        <item quantity="one">%d file</item>
+        <item quantity="other">%d files</item>
+    </plurals>
+    <plurals name="text_secondsAgo">
+        <item quantity="one">A second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+    <plurals name="text_minutesAgo">
+        <item quantity="one">A minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="text_gridRow">
+        <item quantity="one">Single row</item>
+        <item quantity="other">%d rows</item>
+    </plurals>
+
+    <integer name="length_max_username">32</integer>
+
+
+    <item name="actions_abs_editable_group_grid_size" type="id"/>
+    <item name="actions_abs_group_shareable_group_grouping" type="id"/>
+    <item name="actions_abs_editable_group_sorting" type="id"/>
+    <item name="actions_abs_view_transfer_activity_settings" type="id"/>
+    <item name="actions_abs_editable_group_sort_order" type="id"/>
+
+
+    <declare-styleable name="ComparativeRelativeLayout">
+        <attr name="baseOnSmallerLength" format="boolean" />
+        <attr name="tallerLengthExtra" format="dimension" />
+        <attr name="alwaysUseWidth" format="boolean" />
+    </declare-styleable>
+
+</resources>
