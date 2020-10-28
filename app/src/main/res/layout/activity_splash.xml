@@ -14,7 +14,7 @@
             android:id="@+id/splashbg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#1b05f9">
+            android:background="#9874a7">
 
             <LinearLayout
                 android:id="@+id/splash"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    android:text="Soon opening"
+                    android:text="Soon Opening"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
                     android:textColor="@color/cardview_light_background"
@@ -93,6 +93,8 @@
             </LinearLayout>
 
         </RelativeLayout>
+</LinearLayout>
+    <!--
 
         <ImageView
             android:id="@+id/layout_welcome_page_1_splash_image"
@@ -191,5 +193,4 @@
 
         </LinearLayout>
 
-
-    </LinearLayout>
+-->

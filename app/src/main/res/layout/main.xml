@@ -14,7 +14,9 @@
             class="com.cnnfe.liteshare.DeviceListFragment"
             android:id="@+id/frag_list"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/phone_list_height">
+            android:layout_height="match_parent">
+            <!--editsheight=@dimen/phone_list_height-->
+            
             <!-- Preview: layout=@layout/row_devices -->
         </fragment>
         <fragment

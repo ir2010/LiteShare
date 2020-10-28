@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name" translatable="false">ShareYou</string>
-    <string name="footer">Copyright © ShareYou 2020. All Right Reserved</string>
-    <string name="text_aboutSummary">Copyright © ShareYou 2020. All Right Reserved</string>
-    <string name="app_description">Send Whatever You want, Wherever you Want</string>
-    <string name="developer">Surajit@Malkangiri</string>
-    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="interstitial_ad_unit" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner_ad_unit" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 
-
-
+    <string name="app_name">LiteShare</string>
+    <string name="title_activity_file_show">FileShow</string>
+    <!--  Strings used for fragments for navigation  -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="enable_p2p_button">P2P On/Off</string>
+    <string name="discover_peers_button">Discover</string>
+    <string name="connect_peer_button">Connect</string>
+    <string name="disconnect_peer_button">Disconnect</string>
+    <string name="get_file_button">Launch Gallery</string>
+    <string name="empty"/>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="client_text">This device will act as a client. Click on Gallery button to pick a local(stored) file</string>
+    <string name="empty_message">No devices found. Turn on P2P and perform discovery from the Action Bar</string>
+    <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
+    <string name="group_owner_text">"Am I the Group Owner? "</string>
+    <string name="label_me">ME</string>
+    <string name="label_peers">PEERS</string>
     <string name="text_navigationDrawerOpen">Open navigation drawer</string>n
     <string name="text_navigationDrawerClose">Close navigation drawer</string>
     <string name="mesg_connectionFailure">Connection failed</string>
