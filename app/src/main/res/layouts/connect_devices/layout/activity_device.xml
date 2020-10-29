@@ -7,10 +7,10 @@
     tools:context=".Connect_devices.DevicesActivity">
 
     <fragment
-        android:name="com.cnnfe.liteshare.Connect_devices.DevicesListFragment"
         android:id="@+id/list_devices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:name="com.cnnfe.liteshare.Connect_devices.DevicesListFragment"
+        android:layout_width="406dp"
+        android:layout_height="372dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
 
-    <fragment
+   <!-- <fragment
         android:id="@+id/details_device"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.071" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

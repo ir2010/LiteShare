@@ -20,8 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LiteShare">
-        <activity android:name=".DevicesActivity"></activity>
-        <activity android:name=".AppShow" />
+        <activity android:name=".Connect_devices.DevicesActivity"></activity>
+        <activity android:name=".File_list.AppShow" />
         <activity android:name=".File_list.FileActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

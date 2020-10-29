@@ -15,9 +15,6 @@ import android.view.ViewGroup;
 import com.cnnfe.liteshare.R;
 import com.cnnfe.liteshare.dummy.DummyContent;
 
-/**
- * A fragment representing a list of Items.
- */
 public class DevicesListFragment extends Fragment {
 
     // TODO: Customize parameter argument names

@@ -29,7 +29,7 @@ public class FileActivity extends AppCompatActivity
     //ArrayList<String> listOfIcons = new ArrayList<>();
     private static final int CHOOSE_FILE = 1;
 
-    Button docs, images, audios, videos, apps;
+    Button docs, images, audios, videos, apps, send_files;
     TextView selected_files;
 
     @Override
@@ -44,6 +44,7 @@ public class FileActivity extends AppCompatActivity
         videos = (Button) findViewById(R.id.videos);
         apps = (Button) findViewById(R.id.apps);
         selected_files = (TextView) findViewById(R.id.selected_files);
+        send_files = (Button) findViewById(R.id.send_file);
 
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -93,10 +94,19 @@ public class FileActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 //chooseFile("application/*");
-                startActivity(new Intent(FileActivity.this, AppShow.class));
+                Intent intent = new Intent(FileActivity.this, AppShow.class);
+                startActivity(intent);
             }
         });
 
+        send_files.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /*recyclerView.setHasFixedSize(true);
 
@@ -191,6 +201,7 @@ public class FileActivity extends AppCompatActivity
 
                 //path = cursor.getString(column_index);
                 Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
+                selected_files.setText(uri.toString());
             }
         }
     }
