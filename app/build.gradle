@@ -45,6 +45,9 @@ android {
 
 dependencies {
 
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta7'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
@@ -56,5 +59,16 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.genonbeta.android:framework:1.0.2.8'
+    implementation 'com.genonbeta.android:gdatabase:1.0.2.6.1'
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'com.velitasali.tools.android:zxing:3.6.3'
+
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'androidx.annotation:annotation:1.1.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
+
+
 
 }

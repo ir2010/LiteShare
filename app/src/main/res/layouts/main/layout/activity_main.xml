@@ -4,28 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#fed6fa"
+    tools:context=".MainActivity"
+    >
 
-   <!-- <androidx.appcompat.widget.Toolbar
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:id="@+id/toolbar" /> -->
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/send"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="407dp"
-        android:text="SEND" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:background="@color/purple_200">
 
-    <Button
-        android:id="@+id/receive"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="249dp"
-        android:text="RECEIVE"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                app:srcCompat="@mipmap/ic_launcher" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:weightSum="4">
+
+
+            <RelativeLayout
+                android:id="@+id/send1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/fileicon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/send2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/apkicon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/send3"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/musicicon" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/send4"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    app:srcCompat="@drawable/videoicon" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#fed6fa" >
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background = "@drawable/round_button"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="30dp"
+                android:text="Send"
+                android:layout_gravity="left|bottom"
+                android:textStyle="italic"
+                android:textSize="@dimen/font_size_title" />
+
+        <Button
+            android:id="@+id/receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background = "@drawable/round_button"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:padding="10dp"
+            android:text="Receive"
+            android:layout_gravity="right|bottom"
+            android:textSize="20sp"/>
+        </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>
+

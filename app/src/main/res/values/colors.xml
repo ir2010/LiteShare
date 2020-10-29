@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorPrimary">#1b05f9</color>
+    <color name="colorPrimaryDark">#1b05f9</color>
+
+
+    <color name="colorControlNormal">#222</color>
+    <color name="colorError">#EF020B</color>
+    <color name="colorOnPrimary">@color/colorControlNormal</color>
+    <color name="colorOnSecondary">@color/colorControlNormal</color>
+
+    <color name="colorPrimaryDark23">#1b05f9</color>
+    <color name="colorSecondary">#1b05f9</color>
+    <color name="colorSurface">#fefefe</color>
+    <color name="windowBackground">#ffffff</color>
+    <!-- local coloring-->
+    <color name="colorDonation">#F44336</color>
+    <color name="colorDivider">#EEEEEE</color>
+    <color name="colorPassive">#20000000</color>
+    <color name="colorSelection">#20000000</color>
+    <color name="colorShadowBeginning">#00D0D0D0</color>
+    <color name="colorShadowEnd">#50D0D0D0</color>
+    <color name="colorTranslucent">#B0FFFFFF</color>
+    <color name="contentShowingBackground">#cfcfcf</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -10,4 +33,34 @@
 
     <color name="status_bar_color">#FF000000</color>
     <color name="layout_border_color">#FF111111</color>
+
+
+    <!-- SEPERATOR -->
+
+
+    <color name="dark_colorControlNormal">#ffffff</color>
+    <color name="dark_colorError">#ffeb3b</color>
+    <color name="dark_colorOnPrimary">@color/dark_colorControlNormal</color>
+    <color name="dark_colorOnSecondary">@color/dark_colorControlNormal</color>
+    <color name="dark_colorPrimary">#1E1E1E</color>
+    <color name="dark_colorPrimaryDark">@color/dark_colorPrimary</color>
+    <color name="dark_colorSecondary">#0148FB</color>
+
+    <color name="dark_colorSurface">#2E2E2E</color>
+    <color name="dark_windowBackground">@color/dark_colorPrimary</color>
+    <color name="dark_colorPrimaryDark23">@color/dark_colorPrimary</color>
+    <!-- local coloring-->
+    <color name="dark_colorDonation">#f44336</color>
+    <color name="dark_colorDivider">#2E2E2E</color>
+    <color name="dark_colorPassive">#229e9e9e</color>
+    <color name="dark_colorSelection">#229e9e9e</color>
+    <color name="dark_colorShadowBeginning">#000E171A</color>
+    <color name="dark_colorShadowEnd">#500E171A</color>
+    <color name="dark_colorTranslucent">#b000</color>
+    <color name="dark_contentShowingBackground">#616161</color>
+
+
+    <!-- SEPERATOR -->
+
+
 </resources>
