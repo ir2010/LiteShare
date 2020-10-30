@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".File_list.FileActivity"
-    tools:ignore="ExtraText">
+    tools:ignore="ExtraText"
     android:background="#fed6fa">
 
     <!-- <androidx.recyclerview.widget.RecyclerView
@@ -13,66 +13,84 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/> -->
+ <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/apps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Apps/"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.209" />
+     <Button
+         android:id="@+id/apps"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="left"
+         android:layout_marginTop="80dp"
+         android:layout_marginLeft="40dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/apkicon"
+         android:drawablePadding="10dp"
+         android:text="Apps"
+         android:textStyle="italic"
+         android:textColor="@color/black"/>
+     <Button
+         android:id="@+id/docs"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_marginTop="80dp"
+         android:layout_marginRight="40dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/fileicon"
+         android:drawablePadding="50dp"
+         android:text="Files"
+         android:textStyle="italic"
+         android:textColor="@color/black"/>
 
-    <Button
-        android:id="@+id/docs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Documents/"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.279" />
+     <Button
+         android:id="@+id/images"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:layout_gravity="left"
+         android:layout_marginLeft="40dp"
+         android:layout_marginTop="310dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/imicon"
+         android:drawablePadding="50dp"
+         android:text="Images"
+         android:textColor="@color/black"
+         android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/images"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Images/"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.349" />
+     <Button
+         android:id="@+id/audios"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_marginTop="310dp"
+         android:layout_marginRight="40dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/musicicon"
+         android:drawablePadding="50dp"
+         android:text="Audios"
+         android:textStyle="italic"
+         android:textColor="@color/black"/>
 
-    <Button
-        android:id="@+id/audios"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Audios/"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.42" />
+     <Button
+         android:id="@+id/videos"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="200dp"
 
-    <Button
-        android:id="@+id/videos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Videos/"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/videoicon"
+         android:drawablePadding="50dp"
+         android:text="Videos"
+         android:textStyle="italic"
+         android:textColor="@color/black"/>
+
+
+    </FrameLayout>
+
+
+
 
     <TextView
         android:layout_width="102dp"

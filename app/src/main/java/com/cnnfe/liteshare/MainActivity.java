@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 startActivity(new Intent(MainActivity.this, FileActivity.class));
-                overridePendingTransition(R.anim.silde_out_bottom, R.anim.silde_in_bottom);
+                //overridePendingTransition(R.anim.silde_out_bottom, R.anim.silde_in_bottom);
             }
         });
     }
