@@ -105,7 +105,7 @@ public class FileActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", uri);
+                intent.putExtra("fileUri", uri.toString());
                 startActivity(intent);
             }
         });

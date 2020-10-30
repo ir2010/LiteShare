@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cnnfe.liteshare.R;
-import com.cnnfe.liteshare.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +31,11 @@ import com.cnnfe.liteshare.Connect_devices.Helper;
 
 import static com.cnnfe.liteshare.Connect_devices.Helper.getDeviceStatus;
 
-public class DevicesListFragment extends ListFragment implements WifiP2pManager.PeerListListener
-{
+public class DevicesListFragment extends ListFragment implements WifiP2pManager.PeerListListener {
     private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     ProgressDialog progressDialog;
     View mContentView;
-    private  WifiP2pDevice thisDevice;
+    private WifiP2pDevice thisDevice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,15 +43,13 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState)
-    {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         this.setListAdapter(new WiFiPeerListAdapter(getActivity(), R.layout.row_peers, peers));
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContentView = inflater.inflate(R.layout.fragment_devices_list, container, false);
 
         return mContentView;
@@ -61,7 +57,7 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
 
     @Override
     public void onPeersAvailable(WifiP2pDeviceList peerList) {
-        if(progressDialog != null && progressDialog.isShowing())
+        if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
 
         peers.clear();
@@ -69,10 +65,9 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id)
-    {
+    public void onListItemClick(ListView l, View v, int position, long id) {
         WifiP2pDevice device = (WifiP2pDevice) getListAdapter().getItem(position);
-        new DeviceActionListener().showDetails(device);
+        DevicesActivity.deviceActionListener.showDetails(device);
     }
 
     public void updateThisDevice(WifiP2pDevice device) {
@@ -87,12 +82,8 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
         return thisDevice;
     }
 
-    public void clearPeers()
-    {
+    public void clearPeers() {
         peers.clear();
         ((WiFiPeerListAdapter) getListAdapter()).notifyDataSetChanged();
     }
-
-
-
 }

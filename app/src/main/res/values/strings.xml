@@ -3,6 +3,7 @@
 
     <string name="app_name">LiteShare</string>
     <string name="title_activity_file_show">FileShow</string>
+    <string name="download_path">/storage/emulated/0/</string>
     <!--  Strings used for fragments for navigation  -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -351,8 +352,7 @@
     <string name="text_transferSharedOnBrowser">Shared on browser</string>
     <string name="mode_webShareAddress">http://%s:%d/</string>
     <string name="text_dowloadTBShareAndroid">Download ShareYou for Android</string>
-    <string name="mesg_errorNotAnIpAddress">Not an IP Address
-\n(like 192.168.1.2)</string>
+    <string name="mesg_errorNotAnIpAddress">Not an IP Address\n(like 192.168.1.2)</string>
     <string name="butn_downloadAllAsZip">Download all as ZIP (single, uncompressed)</string>
     <string name="text_interfaceVPN">VPN Server</string>
     <string name="text_unrecognizedQrCode">Unrecognized code</string>
