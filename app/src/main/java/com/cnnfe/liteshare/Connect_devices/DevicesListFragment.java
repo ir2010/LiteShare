@@ -24,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cnnfe.liteshare.R;
-import com.cnnfe.liteshare.dummy.DummyContent;
+//import com.cnnfe.liteshare.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -30,8 +30,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     {
         // Required empty public constructor
     }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
