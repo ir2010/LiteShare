@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/details_view"
     android:orientation="vertical"
-    android:visibility="gone"
+
     tools:context=".Connect_devices.DeviceDetailsFragment">
 
     <LinearLayout
@@ -22,7 +22,7 @@
                 android:id="@+id/btn_connect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:background="@drawable/round_button"
                 android:text="@string/connect_peer_button" />
 
@@ -31,16 +31,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-                android:layout_weight="0.5"
+                android:layout_weight="0.3"
                 android:text="@string/disconnect_peer_button" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_send"
+                android:background="@drawable/round_button"
+                android:text="Send"
+                android:layout_weight="0.3"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_send"
-            android:background="@drawable/round_button"
-            android:text="Send"
-            android:layout_gravity="center_horizontal"/>
+
         <TextView
             android:id="@+id/device_address"
             android:textColor="@color/textColor"
@@ -65,7 +67,7 @@
         <LinearLayout
             android:id="@+id/status_bar"
             android:layout_width="match_parent"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginBottom="3dp"
             android:background="@android:color/transparent"
@@ -77,7 +79,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:textColor="@android:color/primary_text_light"/>
+                android:textColor="@android:color/primary_text_light" />
         </LinearLayout>
 
     </LinearLayout>

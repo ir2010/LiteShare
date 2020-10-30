@@ -35,7 +35,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
 
     private WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
     private WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
-    private BroadcastReceiver receiver;                //notifies of important Wi-Fi p2p events
+    private BroadcastReceiver receiver = null;                //notifies of important Wi-Fi p2p events
     public static boolean isWifiP2pEnabled = false;
     private boolean retryChannel = false;
 
@@ -65,7 +65,6 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
 
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
-        receiver = new WiFiDirectBroadcastReceiver(manager, channel, this);
 
         deviceActionListener = new DeviceActionListener(manager, channel, fragmentDetails, fragmentList, DevicesActivity.this);
 
@@ -78,6 +77,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     @Override
     protected void onResume() {
         super.onResume();
+        receiver = new WiFiDirectBroadcastReceiver(manager, channel, this);
         registerReceiver(receiver, intentFilter);
     }
 
@@ -113,19 +113,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
                     Toast.makeText(DevicesActivity.this, R.string.p2p_off_warning, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-
-                if (progressDialog != null && progressDialog.isShowing())
-                {
-                    progressDialog.dismiss();
-                }
-                ProgressDialog.show(this, "Press back to cancel", "Finding Peers...", true, true,
-                        new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialog) {
-
-                                    }
-                                });
-
+                fragmentList.onInitiateDiscovery();
                 if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
                     manager.discoverPeers(channel, new WifiP2pManager.ActionListener() {

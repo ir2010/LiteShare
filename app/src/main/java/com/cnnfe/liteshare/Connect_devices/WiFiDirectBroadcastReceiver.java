@@ -90,13 +90,13 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             }
             else {
                 // It's a disconnect
-               // activity.resetData();
+                 activity.resetData();
             }
         }
         else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action))
         {
-            android.app.Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.list_devices);
-            //fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
+            DevicesListFragment fragment = (DevicesListFragment) activity.getFragmentManager().findFragmentById(R.id.list_devices);
+            fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
         }
     }
 

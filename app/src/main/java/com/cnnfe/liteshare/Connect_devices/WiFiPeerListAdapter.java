@@ -47,7 +47,8 @@ public class WiFiPeerListAdapter extends ArrayAdapter<WifiP2pDevice>
             {
                 top.setText(device.deviceName);
             }
-            if (bottom != null) {
+            if (bottom != null)
+            {
                 bottom.setText(Helper.getDeviceStatus(device.status));
             }
         }

@@ -33,7 +33,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     private WifiP2pDevice selectedDevice;
     private WifiP2pInfo info;
 
-    ProgressDialog progressDialog;
+    ProgressDialog progressDialog = null;
 
 
     public DeviceDetailsFragment()
@@ -62,7 +62,11 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
                 config.deviceAddress = selectedDevice.deviceAddress;
                 config.wps.setup = WpsInfo.PBC;  // = 0
 
-                ProgressDialog progressDialog = ProgressDialog.show(getActivity(), "Connecting to "+ selectedDevice.deviceName, "Press back to cancel", true, true);
+                if (progressDialog != null && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+                }
+
+                progressDialog = ProgressDialog.show(getActivity(), "Connecting to "+ selectedDevice.deviceName, "Press back to cancel", true, true);
                 DevicesActivity.deviceActionListener.connect(config);
             }
         });
@@ -121,6 +125,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     public void resetViews()
     {
         mContentView.findViewById(R.id.btn_connect).setVisibility(View.VISIBLE);
+        mContentView.findViewById(R.id.btn_connect).setEnabled(true);
 
         TextView view = (TextView) mContentView.findViewById(R.id.device_address);
         view.setText(R.string.empty);
