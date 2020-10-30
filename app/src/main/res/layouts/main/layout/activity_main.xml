@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fed6fa"
+    android:background="@color/backgroundColor"
     tools:context=".MainActivity"
     >
 
@@ -17,7 +17,6 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:background="@color/purple_200">
-
 
             <ImageView
                 android:id="@+id/imageView"
@@ -32,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/textColor"
             android:textSize="30sp"
             android:weightSum="4">
 
@@ -104,7 +103,7 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#fed6fa" >
+            android:background="@color/backgroundColor" >
 
             <Button
                 android:id="@+id/send"

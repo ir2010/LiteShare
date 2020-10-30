@@ -31,6 +31,7 @@ public class FileActivity extends AppCompatActivity
 
     Button docs, images, audios, videos, apps, send_files;
     TextView selected_files;
+    Uri uri = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -104,6 +105,7 @@ public class FileActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
+                intent.putExtra("fileUri", uri);
                 startActivity(intent);
             }
         });
@@ -187,7 +189,6 @@ public class FileActivity extends AppCompatActivity
         if (requestCode == CHOOSE_FILE && resultCode == Activity.RESULT_OK)
         {
             // The result data contains a URI for the document or directory that the user selected.
-            Uri uri = null;
             if (resultData != null)
             {
                 uri = resultData.getData();
@@ -220,7 +221,7 @@ public class FileActivity extends AppCompatActivity
                 //disable all the buttons
                 docs.setEnabled(false);
                 images.setEnabled(false);
-               // apps.setEnabled(false);
+                apps.setEnabled(false);
                 audios.setEnabled(false);
                 videos.setEnabled(false);
             }

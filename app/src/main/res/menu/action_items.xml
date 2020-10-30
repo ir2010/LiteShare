@@ -2,13 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/atn_direct_enable"
+        android:id="@+id/turn_on_wifi"
         android:icon="@drawable/ic_action_on_off"
         android:title="@string/enable_p2p_button"
         app:showAsAction="ifRoom|withText" />
 
     <item
-        android:id="@+id/atn_direct_discover"
+        android:id="@+id/discover_peers"
         android:icon="@drawable/ic_action_discover"
         android:title="@string/discover_peers_button"
         app:showAsAction="ifRoom|withText" />

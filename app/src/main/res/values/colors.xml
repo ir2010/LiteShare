@@ -4,6 +4,10 @@
     <color name="colorPrimary">#1b05f9</color>
     <color name="colorPrimaryDark">#1b05f9</color>
 
+    <color name="backgroundColor">#fed6fa</color>
+    <color name="textColor">#FFFFFF</color>
+    <color name="splash">#9874a7</color>
+
 
     <color name="colorControlNormal">#222</color>
     <color name="colorError">#EF020B</color>
