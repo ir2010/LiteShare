@@ -22,14 +22,18 @@
          android:layout_width="100dp"
          android:layout_height="wrap_content"
          android:layout_gravity="left"
-         android:layout_marginTop="80dp"
          android:layout_marginLeft="40dp"
-         android:background="@android:color/holo_purple"
+         android:layout_marginTop="80dp"
+         android:background="@color/purple_200"
          android:drawableTop="@drawable/apkicon"
          android:drawablePadding="10dp"
          android:text="Apps"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
          android:textStyle="italic"
-         android:textColor="@color/black"/>
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
+
      <Button
          android:id="@+id/docs"
          android:layout_width="100dp"
@@ -37,12 +41,15 @@
          android:layout_gravity="right"
          android:layout_marginTop="80dp"
          android:layout_marginRight="40dp"
-         android:background="@android:color/holo_purple"
+         android:background="@color/purple_200"
          android:drawableTop="@drawable/fileicon"
          android:drawablePadding="50dp"
          android:text="Files"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
          android:textStyle="italic"
-         android:textColor="@color/black"/>
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
      <Button
          android:id="@+id/images"
@@ -55,8 +62,11 @@
          android:drawableTop="@drawable/imicon"
          android:drawablePadding="50dp"
          android:text="Images"
+         android:textAppearance="@style/TextAppearance.Button"
          android:textColor="@color/black"
-         android:textStyle="italic" />
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
      <Button
          android:id="@+id/audios"
@@ -69,8 +79,11 @@
          android:drawableTop="@drawable/musicicon"
          android:drawablePadding="50dp"
          android:text="Audios"
+         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+         android:textColor="@color/black"
          android:textStyle="italic"
-         android:textColor="@color/black"/>
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
      <Button
          android:id="@+id/videos"
@@ -78,13 +91,16 @@
          android:layout_height="wrap_content"
          android:layout_gravity="center_horizontal"
          android:layout_marginTop="200dp"
-
          android:background="@android:color/holo_purple"
+
          android:drawableTop="@drawable/videoicon"
          android:drawablePadding="50dp"
          android:text="Videos"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
          android:textStyle="italic"
-         android:textColor="@color/black"/>
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
 
     </FrameLayout>
@@ -120,6 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="56dp"
         android:text="Send"
+        app:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
