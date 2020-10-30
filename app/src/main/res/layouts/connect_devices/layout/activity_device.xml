@@ -23,6 +23,7 @@
 
     <fragment
         android:id="@+id/details_device"
+        android:name="com.cnnfe.liteshare.Connect_devices.DeviceDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="364dp"
         tools:layout_editor_absoluteX="-7dp"

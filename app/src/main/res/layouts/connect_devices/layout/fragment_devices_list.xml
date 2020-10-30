@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- layout for DevicesListFragment-->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -84,6 +86,7 @@
         android:gravity="center_vertical"
         android:background="@color/purple_200"/>
 
+    <!-- Listview for list of peers -->
     <ListView
         android:id="@+id/list_of_devices"
         android:layout_width="match_parent"

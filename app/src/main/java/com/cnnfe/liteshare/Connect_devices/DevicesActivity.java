@@ -29,8 +29,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
-public class DevicesActivity extends AppCompatActivity {
-
+public class DevicesActivity extends AppCompatActivity
+{
     public static final String TAG = "liteshare";
 
     private WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
@@ -46,6 +46,7 @@ public class DevicesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
 
+        //check and request for permissions
         if (!checkForPermissions(this, permissions)) {
             ActivityCompat.requestPermissions(this, permissions, 1);
         }
@@ -53,6 +54,8 @@ public class DevicesActivity extends AppCompatActivity {
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
         receiver = new WiFiDirectBroadcastReceiver(manager, channel, this);
+
+
 
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
@@ -98,7 +101,7 @@ public class DevicesActivity extends AppCompatActivity {
                     Toast.makeText(DevicesActivity.this, R.string.p2p_off_warning, Toast.LENGTH_SHORT).show();
                     return true;
                 }
-                final Fragment fragment = getFragmentManager().findFragmentById(R.id.list_devices);
+                DevicesListFragment fragment = (DevicesListFragment) getFragmentManager().findFragmentById(R.id.list_devices);
                 ProgressDialog progressDialog =
                         ProgressDialog.show(this, "Press back to cancel", "Finding Peers...", true,
                                 true, new DialogInterface.OnCancelListener() {
@@ -130,6 +133,19 @@ public class DevicesActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void resetData() {
+        DevicesListFragment fragmentList = (DevicesListFragment) getFragmentManager().findFragmentById(R.id.list_devices);
+        DeviceDetailsFragment fragmentDetails = (DeviceDetailsFragment) getFragmentManager().findFragmentById(R.id.details_device);
+        if (fragmentList != null)
+        {
+            fragmentList.clearPeers();
+        }
+        if (fragmentDetails != null)
+        {
+            fragmentDetails.resetViews();
         }
     }
 

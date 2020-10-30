@@ -1,6 +1,7 @@
 package com.cnnfe.liteshare.Connect_devices;
 
 import android.app.Application;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
 
 import com.cnnfe.liteshare.R;
 
@@ -54,7 +54,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             else {
                 //state = 1
                 activity.isWifiP2pEnabled = false;
-                activity.resetData();
+                //activity.resetData();
             }
             Log.d(DevicesActivity.TAG, "P2P state changed - " + state);
         }
@@ -80,18 +80,18 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
             if (isNetworkAvailable(activity.getApplication()))
             {
-                Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.detail_device);
+                DeviceDetailsFragment fragment = (DeviceDetailsFragment) activity.getFragmentManager().findFragmentById(R.id.details_device);
                 manager.requestConnectionInfo(channel, fragment);
             }
             else {
                 // It's a disconnect
-                activity.resetData();
+               // activity.resetData();
             }
         }
         else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action))
         {
             android.app.Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.list_devices);
-            fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
+            //fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
         }
     }
 

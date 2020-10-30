@@ -103,31 +103,35 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundColor" >
+            android:background="@color/backgroundColor">
 
             <Button
                 android:id="@+id/send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background = "@drawable/round_button"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="30dp"
-                android:text="Send"
                 android:layout_gravity="left|bottom"
-                android:textStyle="italic"
-                android:textSize="@dimen/font_size_title" />
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round_button"
+                android:padding="5dp"
+                android:text="Send"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/font_size_title"
+                android:textStyle="italic" />
 
-        <Button
-            android:id="@+id/receive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background = "@drawable/round_button"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
-            android:padding="10dp"
-            android:text="Receive"
-            android:layout_gravity="right|bottom"
-            android:textSize="20sp"/>
+            <Button
+                android:id="@+id/receive"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="right|bottom"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/round_button"
+                android:padding="5dp"
+                android:text="Receive"
+                android:textColor="@color/textColor"
+                android:textSize="24sp"
+                android:textStyle="italic" />
         </FrameLayout>
     </LinearLayout>
 
