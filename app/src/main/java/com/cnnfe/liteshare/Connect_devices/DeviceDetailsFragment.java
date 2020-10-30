@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 //A fragment that manages a particular peer and allows interaction with device i.e. setting up network connection and transferring data.
 
 public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener {
@@ -158,5 +162,27 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
         FileTransferService.enqueueWork(getActivity(), serviceIntent);
+    }
+
+    public static boolean copyFile(InputStream inputStream, OutputStream outputStream)
+    {
+        byte buf[] = new byte[1024];
+        int len;
+
+        try
+        {
+            while((len = inputStream.read(buf)) != -1)
+            {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.close();
+            inputStream.close();
+        }
+        catch (IOException e)
+        {
+            Log.d(DevicesActivity.TAG, e.toString());
+            return false;
+        }
+        return true;
     }
 }

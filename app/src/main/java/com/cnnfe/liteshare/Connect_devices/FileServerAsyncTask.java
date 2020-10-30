@@ -57,7 +57,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             Log.d(DevicesActivity.TAG, "Server: Copying files "+ f.toString());
             InputStream inputStream = client.getInputStream();
 
-            copyFile(inputStream, new FileOutputStream(f));
+            DeviceDetailsFragment.copyFile(inputStream, new FileOutputStream(f));
             serverSocket.close();
             return f.getAbsolutePath();
         }
@@ -87,27 +87,5 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             showFileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(showFileIntent);
         }
-    }
-
-    public static boolean copyFile(InputStream inputStream, OutputStream outputStream)
-    {
-        byte buf[] = new byte[1024];
-        int len;
-
-        try
-        {
-            while((len = inputStream.read(buf)) != -1)
-            {
-                outputStream.write(buf, 0, len);
-            }
-            outputStream.close();
-            inputStream.close();
-        }
-        catch (IOException e)
-        {
-            Log.d(DevicesActivity.TAG, e.toString());
-            return false;
-        }
-        return true;
     }
 }
