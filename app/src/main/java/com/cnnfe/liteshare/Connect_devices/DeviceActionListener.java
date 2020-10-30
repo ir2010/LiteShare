@@ -1,5 +1,6 @@
 package com.cnnfe.liteshare.Connect_devices;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -19,12 +20,12 @@ public class DeviceActionListener
     WifiP2pManager.Channel channel;
     DeviceDetailsFragment detailsFragment;
     DevicesListFragment listFragment;
-    Context context;
+    Activity context;
 
     public DeviceActionListener() {
     }
 
-    public DeviceActionListener(WifiP2pManager manager, WifiP2pManager.Channel channel, DeviceDetailsFragment detailsFragment, DevicesListFragment listFragment, Context context) {
+    public DeviceActionListener(WifiP2pManager manager, WifiP2pManager.Channel channel, DeviceDetailsFragment detailsFragment, DevicesListFragment listFragment, Activity context) {
         this.manager = manager;
         this.channel = channel;
         this.detailsFragment = detailsFragment;
@@ -56,6 +57,10 @@ public class DeviceActionListener
                     Toast.makeText(context, "Connect failed. Retry.", Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        else
+        {
+            ActivityCompat.requestPermissions(context, new String[]{ACCESS_FINE_LOCATION}, 1);
         }
     }
 

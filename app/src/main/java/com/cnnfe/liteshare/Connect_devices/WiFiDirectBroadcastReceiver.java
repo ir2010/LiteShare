@@ -54,6 +54,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             else {
                 //state = 1
                 activity.isWifiP2pEnabled = false;
+                activity.resetData();
                 //activity.resetData();
             }
             Log.d(DevicesActivity.TAG, "P2P state changed - " + state);
@@ -65,6 +66,10 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 if (ActivityCompat.checkSelfPermission(activity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
                     manager.requestPeers(channel, (WifiP2pManager.PeerListListener) activity.getFragmentManager().findFragmentById(R.id.list_devices));
+                }
+                else
+                {
+                    ActivityCompat.requestPermissions(activity, new String[]{ACCESS_FINE_LOCATION}, 1);
                 }
             }
             Log.d(DevicesActivity.TAG, "P2P peers changed");

@@ -47,6 +47,8 @@ public class FileActivity extends AppCompatActivity
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
 
+        send_files.setEnabled(false);
+
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -203,6 +205,7 @@ public class FileActivity extends AppCompatActivity
                 //path = cursor.getString(column_index);
                 Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
                 selected_files.setText(uri.toString());
+                send_files.setEnabled(true);
             }
         }
     }

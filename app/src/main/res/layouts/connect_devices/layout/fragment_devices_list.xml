@@ -6,7 +6,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
     android:name="com.cnnfe.liteshare.Connect_devices.DevicesListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -88,7 +87,7 @@
 
     <!-- Listview for list of peers -->
     <ListView
-        android:id="@+id/list_of_devices"
+        android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="500dp"
         android:layout_weight="1"
@@ -96,7 +95,7 @@
         android:background="@color/backgroundColor"/>
 
     <TextView
-        android:id="@+id/empty_msg"
+        android:id="@id/android:empty"
         android:layout_width="404dp"
         android:layout_height="409dp"
         android:layout_gravity="center"

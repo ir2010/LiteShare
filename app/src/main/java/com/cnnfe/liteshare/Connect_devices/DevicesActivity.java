@@ -46,6 +46,8 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     private final IntentFilter intentFilter = new IntentFilter();     //intents that notify of specific events detected by the Wi-Fi P2P framework
     String[] permissions = {ACCESS_FINE_LOCATION, WRITE_EXTERNAL_STORAGE, ACCESS_WIFI_STATE};     //permissions required for the app
 
+    ProgressDialog progressDialog = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -65,7 +67,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         channel = manager.initialize(this, getMainLooper(), null);
         receiver = new WiFiDirectBroadcastReceiver(manager, channel, this);
 
-        deviceActionListener = new DeviceActionListener(manager, channel, fragmentDetails, fragmentList, getApplicationContext());
+        deviceActionListener = new DeviceActionListener(manager, channel, fragmentDetails, fragmentList, DevicesActivity.this);
 
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
@@ -112,10 +114,12 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
                     return true;
                 }
 
-                ProgressDialog progressDialog =
-                        ProgressDialog.show(this, "Press back to cancel", "Finding Peers...", true,
-                                true, new DialogInterface.OnCancelListener() {
-
+                if (progressDialog != null && progressDialog.isShowing())
+                {
+                    progressDialog.dismiss();
+                }
+                ProgressDialog.show(this, "Press back to cancel", "Finding Peers...", true, true,
+                        new DialogInterface.OnCancelListener() {
                                     @Override
                                     public void onCancel(DialogInterface dialog) {
 
@@ -138,6 +142,10 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
                                     Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+                else
+                {
+                    ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
                 }
 
                 return true;
