@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".File_list.FileActivity"
+    tools:context=".filepicker.FileActivity"
     tools:ignore="ExtraText"
-    android:background="#fed6fa">
+    android:background="@color/backgroundColor">
 
     <!-- <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/files_list"

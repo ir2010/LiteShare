@@ -116,7 +116,7 @@
                 android:padding="5dp"
                 android:text="Send"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/font_size_title"
+                android:textSize="12sp"
                 android:textStyle="italic" />
 
             <Button
@@ -130,7 +130,7 @@
                 android:padding="5dp"
                 android:text="Receive"
                 android:textColor="@color/textColor"
-                android:textSize="24sp"
+                android:textSize="12sp"
                 android:textStyle="italic" />
         </FrameLayout>
     </LinearLayout>

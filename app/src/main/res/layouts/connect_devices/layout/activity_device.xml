@@ -4,28 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Connect_devices.DevicesActivity"
+    tools:context=".connect.DevicesActivity"
     android:orientation="vertical">
 
-
     <fragment
-            android:id="@+id/list_devices"
-            android:name="com.cnnfe.liteshare.Connect_devices.DevicesListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="372dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.022" />
+        android:id="@+id/list_devices"
+        class="com.cnnfe.liteshare.connect.DevicesListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="244dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.022" />
 
 
     <fragment
         android:id="@+id/details_device"
-        android:name="com.cnnfe.liteshare.Connect_devices.DeviceDetailsFragment"
+        class="com.cnnfe.liteshare.connect.DeviceDetailsFragment"
         android:layout_width="match_parent"
-        android:layout_height="364dp"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-7dp"
         tools:layout_editor_absoluteY="370dp" />
 

@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.File_list;
+package com.cnnfe.liteshare.filepicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,19 +6,20 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cnnfe.liteshare.Connect_devices.DevicesActivity;
-import com.cnnfe.liteshare.MainActivity;
+import com.cnnfe.liteshare.connect.DevicesActivity;
 import com.cnnfe.liteshare.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -48,8 +49,14 @@ public class FileActivity extends AppCompatActivity
         apps = (Button) findViewById(R.id.apps);
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
+
+
+        send_files.setEnabled(false);
+
+
         EditText txtname = findViewById(R.id.edit_input);
         String input_text  =  txtname.getText().toString();
+
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -107,8 +114,16 @@ public class FileActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
+                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+                String fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
+
+                DevicesActivity.isClient = true;
+
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", uri);
+                intent.putExtra("fileUri", uri.toString());
+                intent.putExtra("extension", fileExtension);
                 startActivity(intent);
             }
         });
@@ -206,6 +221,7 @@ public class FileActivity extends AppCompatActivity
                 //path = cursor.getString(column_index);
                 Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
                 selected_files.setText(uri.toString());
+                send_files.setEnabled(true);
             }
         }
     }

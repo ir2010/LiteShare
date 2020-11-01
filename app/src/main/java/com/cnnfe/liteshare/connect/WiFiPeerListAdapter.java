@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.content.Context;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -47,7 +47,8 @@ public class WiFiPeerListAdapter extends ArrayAdapter<WifiP2pDevice>
             {
                 top.setText(device.deviceName);
             }
-            if (bottom != null) {
+            if (bottom != null)
+            {
                 bottom.setText(Helper.getDeviceStatus(device.status));
             }
         }

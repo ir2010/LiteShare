@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.File_list;
+package com.cnnfe.liteshare.filepicker;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cnnfe.liteshare.File_list.AppAdapter;
 import com.cnnfe.liteshare.R;
 
 import java.util.ArrayList;

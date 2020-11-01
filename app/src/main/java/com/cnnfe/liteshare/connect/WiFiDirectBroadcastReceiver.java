@@ -1,7 +1,6 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.app.Application;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -54,6 +53,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             else {
                 //state = 1
                 activity.isWifiP2pEnabled = false;
+                activity.resetData();
                 //activity.resetData();
             }
             Log.d(DevicesActivity.TAG, "P2P state changed - " + state);
@@ -64,7 +64,12 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             {
                 if (ActivityCompat.checkSelfPermission(activity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
+                    Toast.makeText(context, "search started", Toast.LENGTH_SHORT).show();
                     manager.requestPeers(channel, (WifiP2pManager.PeerListListener) activity.getFragmentManager().findFragmentById(R.id.list_devices));
+                }
+                else
+                {
+                    ActivityCompat.requestPermissions(activity, new String[]{ACCESS_FINE_LOCATION}, 1);
                 }
             }
             Log.d(DevicesActivity.TAG, "P2P peers changed");
@@ -81,17 +86,19 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (isNetworkAvailable(activity.getApplication()))
             {
                 DeviceDetailsFragment fragment = (DeviceDetailsFragment) activity.getFragmentManager().findFragmentById(R.id.details_device);
-                manager.requestConnectionInfo(channel, fragment);
+                //manager.requestConnectionInfo(channel, fragment);
+                manager.requestGroupInfo(channel, fragment);
             }
             else {
                 // It's a disconnect
-               // activity.resetData();
+                Toast.makeText(context, "Network not available", Toast.LENGTH_SHORT).show();
+                 activity.resetData();
             }
         }
         else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action))
         {
-            android.app.Fragment fragment = activity.getFragmentManager().findFragmentById(R.id.list_devices);
-            //fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
+            DevicesListFragment fragment = (DevicesListFragment) activity.getFragmentManager().findFragmentById(R.id.list_devices);
+            fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
         }
     }
 
@@ -106,7 +113,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 return false;
 
             NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
-            return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
+            return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)|| actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH));
         }
         else {
             NetworkInfo nwInfo = connectivityManager.getActiveNetworkInfo();

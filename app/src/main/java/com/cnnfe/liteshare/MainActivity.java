@@ -8,7 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.cnnfe.liteshare.File_list.FileActivity;
+import com.cnnfe.liteshare.connect.DevicesActivity;
+import com.cnnfe.liteshare.filepicker.FileActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(new Intent(MainActivity.this, FileActivity.class));
                 //overridePendingTransition(R.anim.silde_out_bottom, R.anim.silde_in_bottom);
+            }
+        });
+
+        receive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DevicesActivity.class);
+                intent.putExtra("fileUri", "");
+                intent.putExtra("extension", "");
+                startActivity(intent);
             }
         });
     }
