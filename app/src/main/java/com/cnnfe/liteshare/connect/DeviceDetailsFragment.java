@@ -1,6 +1,7 @@
 package com.cnnfe.liteshare.connect;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.WpsInfo;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.cnnfe.liteshare.R;
 
 //A fragment that manages a particular peer and allows interaction with device i.e. setting up network connection and transferring data.
@@ -29,6 +32,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     private WifiP2pDevice selectedDevice;
     private WifiP2pInfo info;
     private WifiP2pGroup group;
+    public static String macAdd;
 
     static ProgressDialog progressDialog = null;
 
@@ -89,11 +93,26 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
             @Override
             public void onClick(View v) {
 
-                if(DevicesActivity.uriString != "")
-                {
-                    Uri uri = Uri.parse(DevicesActivity.uriString);
-                    sendFile(uri);
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Want to send using qr code?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent myIntent = new Intent(getActivity(),   QRActivity.class);
+                                startActivity(myIntent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+
+                                if(DevicesActivity.uriString != "")
+                                {
+                                    Uri uri = Uri.parse(DevicesActivity.uriString);
+                                    sendFile(uri);
+                                }
+                            }
+                        });
+
             }
         });
 
@@ -103,6 +122,10 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     @Override
     public  void onConnectionInfoAvailable(WifiP2pInfo info)
     {
+
+        Intent myIntent = new Intent(getActivity(),   QRScannerActivity.class);
+        startActivity(myIntent);
+
         if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
 
@@ -117,7 +140,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
-        public static String macAdd=
+        macAdd=info.groupOwnerAddress.getHostAddress();
         if(info.groupFormed && !DevicesActivity.isClient)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();

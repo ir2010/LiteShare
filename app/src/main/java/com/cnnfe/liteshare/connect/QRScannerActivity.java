@@ -72,9 +72,15 @@ public class QRScannerActivity extends AppCompatActivity {
         Check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(output==) //some string mac address
-                Intent myIntent = new Intent(getBaseContext(),   FileServerAsyncTask.class);
-                startActivity(myIntent);
+
+                String s=DevicesListFragment.getDevice().deviceAddress;//some string mac address
+
+                if(output==s)
+                {
+                    Intent myIntent = new Intent(getBaseContext(),   FileServerAsyncTask.class);
+                    startActivity(myIntent);
+                }
+
             }
         });
 

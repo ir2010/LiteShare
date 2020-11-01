@@ -46,7 +46,7 @@ public class QRActivity extends AppCompatActivity {
         barcode = findViewById(R.id.bar_code);
         //textView = findViewById(R.id.data_text);
         //GET THE STRING VALUE
-        String data_in_code = "Hello Bar Code Data"; //this string value is being passed in qr
+        String data_in_code = DeviceDetailsFragment.macAdd; //this string value is being passed in qr
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {

@@ -29,7 +29,7 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
     private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
     ProgressDialog progressDialog = null;
     View mContentView;
-    private WifiP2pDevice thisDevice;
+    private static WifiP2pDevice thisDevice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
         view.setText(getDeviceStatus(device.status));
     }
 
-    public WifiP2pDevice getDevice() {
+    public static WifiP2pDevice getDevice() {
         return thisDevice;
     }
 
