@@ -1,5 +1,6 @@
 package com.cnnfe.liteshare.connect;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -31,7 +32,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     private WifiP2pGroup group;
 
     static ProgressDialog progressDialog = null;
-
 
     public DeviceDetailsFragment()
     {
@@ -92,7 +92,8 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
                 if(DevicesActivity.uriString != "")
                 {
                     Uri uri = Uri.parse(DevicesActivity.uriString);
-                    sendFile(uri);
+                    String msg = getActivity().getIntent().getStringExtra("msg");
+                    sendFile(uri, msg);
                 }
             }
         });
@@ -100,6 +101,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         return mContentView;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onConnectionInfoAvailable(WifiP2pInfo info)
     {
@@ -107,7 +109,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
             progressDialog.dismiss();
 
         this.info = info;
-        this.getView().setVisibility(View.VISIBLE);
 
         // The owner IP is now known.
         TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
@@ -117,12 +118,15 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
-        if(info.groupFormed && !DevicesActivity.isClient)
+        if(info.groupFormed && info.isGroupOwner)
         {
+            this.getView().setVisibility(View.VISIBLE);
+            DevicesActivity.manager.requestGroupInfo(DevicesActivity.channel, this);
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
         else if(info.groupFormed)
         {
+            this.getView().setVisibility(View.VISIBLE);
             mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
         }
@@ -166,7 +170,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view.setText(device.toString());
     }
 
-    private void sendFile(Uri uri)
+    private void sendFile(Uri uri, String msg)
     {
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending: " + uri);
@@ -176,7 +180,8 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
 
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
-        //serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, group.groupOwnerAddress.getHostAddress());
+        serviceIntent.putExtra(FileTransferService.EXTRAS_MESSAGE, msg);
+        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
 
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
@@ -193,23 +198,23 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         this.getView().setVisibility(View.VISIBLE);
 
         // The owner IP is now known.
-        TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
+       /* TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
         view.setText(getResources().getString(R.string.group_owner_text) + ((this.group.isGroupOwner()) ? "yes": "no"));
 
         // InetAddress from WifiP2pInfo struct.
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
-        view.setText("Group Owner IP - " + ((this.group.getOwner() != null) ? this.group.getOwner(): "NULL"));
+        view.setText("Group Owner MAC - " + ((this.group.getOwner() != null) ? this.group.getOwner().deviceAddress: "NULL"));
 
-        /*if(this.group.groupFormed && this.group.isGroupOwner)
+        if(this.group.isGroupOwner())
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
-        else if(this.group.groupFormed)
+        else
         {
             mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
-        }
-        else
+        }*/
+        /*else
         {
             mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
             //Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();

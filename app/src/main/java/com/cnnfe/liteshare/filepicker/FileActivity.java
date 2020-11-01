@@ -12,10 +12,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +34,10 @@ public class FileActivity extends AppCompatActivity
     //ArrayList<String> listOfIcons = new ArrayList<>();
     private static final int CHOOSE_FILE = 1;
 
-    Button docs, images, audios, videos, apps, send_files;
-    String input_text;
+    Button docs, images, audios, videos, send_files;
+    ImageButton apps;
+    EditText message_edittext;
+    String message = "", fileExtension= "";
     TextView selected_files;
     Uri uri = null;
 
@@ -46,16 +51,14 @@ public class FileActivity extends AppCompatActivity
         images = (Button) findViewById(R.id.images);
         audios = (Button) findViewById(R.id.audios);
         videos = (Button) findViewById(R.id.videos);
-        apps = (Button) findViewById(R.id.apps);
+        apps = (ImageButton) findViewById(R.id.apps);
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
+        message_edittext = (EditText) findViewById(R.id.edit_input);
 
 
         send_files.setEnabled(false);
 
-
-        EditText txtname = findViewById(R.id.edit_input);
-        String input_text  =  txtname.getText().toString();
 
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
@@ -114,17 +117,29 @@ public class FileActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                ContentResolver contentResolver = getApplicationContext().getContentResolver();
-                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-                String fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
-
-                DevicesActivity.isClient = true;
-
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", uri.toString());
+                intent.putExtra("fileUri", uri);
                 intent.putExtra("extension", fileExtension);
+                intent.putExtra("msg", message);
                 startActivity(intent);
+            }
+        });
+
+        message_edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                send_files.setEnabled(true);
+                message = message_edittext.getText().toString();
             }
         });
 
@@ -209,7 +224,8 @@ public class FileActivity extends AppCompatActivity
             // The result data contains a URI for the document or directory that the user selected.
             if (resultData != null)
             {
-                uri = resultData.getData();
+                Uri uri = resultData.getData();
+
                 // Perform operations on the document using its URI.
                 //String path;
 
@@ -219,9 +235,14 @@ public class FileActivity extends AppCompatActivity
                 //cursor.moveToFirst();
 
                 //path = cursor.getString(column_index);
-                Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
                 selected_files.setText(uri.toString());
                 send_files.setEnabled(true);
+
+                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+                fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
             }
         }
     }

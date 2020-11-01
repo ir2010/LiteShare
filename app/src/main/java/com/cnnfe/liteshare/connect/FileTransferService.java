@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.JobIntentService;
+
+import com.cnnfe.liteshare.MainActivity;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +24,7 @@ public class FileTransferService extends JobIntentService
     private static final int SOCKET_TIMEOUT = 5000;
     public static final String ACTION_SEND_FILE = "com.cnnfe.liteshare.SEND_FILE";
     public static final String EXTRAS_FILE_PATH = "file_url";
+    public static final String EXTRAS_MESSAGE = "hey";
     public static final String EXTRAS_GROUP_OWNER_ADDRESS = "go_host";
     public static final String EXTRAS_GROUP_OWNER_PORT = "go_port";
 
@@ -61,6 +65,8 @@ public class FileTransferService extends JobIntentService
 
                 Helper.copyFile(inputStream, outputStream);
                 Log.d(DevicesActivity.TAG, "Client: Data written");
+                Toast.makeText(context, "Data sent!", Toast.LENGTH_SHORT).show();
+                context.startActivity(new Intent(context, MainActivity.class));
             }
             catch (IOException e)
             {

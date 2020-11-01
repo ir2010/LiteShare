@@ -32,8 +32,8 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     public static String fileExtension;
     public static String uriString;
 
-    private WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
-    private WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
+    static WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
+    static WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
     private BroadcastReceiver receiver = null;                //notifies of important Wi-Fi p2p events
     public static boolean isWifiP2pEnabled = false;
     private boolean retryChannel = false;
@@ -68,6 +68,8 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
 
+        Helper.deletePersistentGroups(manager, channel);
+
         deviceActionListener = new DeviceActionListener(manager, channel, fragmentDetails, fragmentList, DevicesActivity.this);
 
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
@@ -98,6 +100,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         manager.removeGroup(channel, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
+                Toast.makeText(DevicesActivity.this, "Group removed!", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Group removed!");
             }
 
@@ -106,6 +109,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
 
             }
         });
+        Helper.deletePersistentGroups(manager, channel);
     }
 
     @Override
