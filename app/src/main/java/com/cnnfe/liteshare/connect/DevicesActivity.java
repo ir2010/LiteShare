@@ -80,7 +80,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
         Toast.makeText(this, isClient?"client":"server", Toast.LENGTH_SHORT).show();
-        Helper.context = getApplicationContext();
+        //Helper.context = getApplicationContext();
     }
 
     @Override

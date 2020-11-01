@@ -26,7 +26,13 @@ import java.util.Random;
 
 public class Helper
 {
-    static Context context;
+    Context context;
+    static String msg;
+    static int password;
+
+    public Helper(Context context) {
+        this.context = context;
+    }
 
     public static String getDeviceStatus(int deviceStatus)
     {
@@ -70,7 +76,7 @@ public class Helper
         return true;
     }
 
-    public static void preparePacketForServer(ArrayList<String> uriList, String msg, DataOutputStream outputStream)
+    public void preparePacketForServer(ArrayList<String> uriList, String msg, DataOutputStream outputStream)
     {
         try
         {
@@ -100,7 +106,7 @@ public class Helper
         outputStream.flush();
     }
 
-    private static void writeFiles(ArrayList<String> uriList, DataOutputStream outputStream) throws IOException
+    private void writeFiles(ArrayList<String> uriList, DataOutputStream outputStream) throws IOException
     {
         //number of files
         outputStream.writeInt(uriList.size());
@@ -132,12 +138,13 @@ public class Helper
         }
     }
 
-    public static void processPacketAtServer(DataInputStream inputStream)
+    public void processPacketAtServer(int passwor, String ms, DataInputStream inputStream)
     {
         try
         {
-            int password = inputStream.readInt();
-            String msg = inputStream.readUTF();
+            password = inputStream.readInt();
+            msg = inputStream.readUTF();
+            Log.d(DevicesActivity.TAG, password + " "+msg);
             receiveFiles(inputStream);
             inputStream.close();
         }
@@ -147,7 +154,7 @@ public class Helper
         }
     }
 
-    private static void receiveFiles(DataInputStream inputStream)throws IOException
+    private void receiveFiles(DataInputStream inputStream)throws IOException
     {
         int noOfFiles = inputStream.readInt();
 
@@ -179,7 +186,7 @@ public class Helper
     }
 
 
-    private static String getNameFromURI(Uri uri)
+    public String getNameFromURI(Uri uri)
     {
         String name;
         Cursor c = context.getContentResolver().query(uri, null, null, null, null);
@@ -189,7 +196,7 @@ public class Helper
         return name;
     }
 
-    private static long getFileSize(Uri uri) {
+    private long getFileSize(Uri uri) {
 
         Long size;
         Cursor c = context.getContentResolver().query(uri, null, null, null, null);

@@ -32,6 +32,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     private WifiP2pDevice selectedDevice;
     private WifiP2pInfo info;
     private WifiP2pGroup group;
+    public static TextView statusText;
 
     static ProgressDialog progressDialog = null;
 
@@ -51,6 +52,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     {
         // Inflate the layout for this fragment
         mContentView = inflater.inflate(R.layout.fragment_device_details, container, false);
+        statusText = (TextView) mContentView.findViewById(R.id.status_text);
 
         /*if(!DevicesActivity.isClient)
         {
@@ -174,7 +176,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
 
     private void sendFile(ArrayList<String> uriList, String msg)
     {
-        TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
         statusText.setText("Sending data!");
         //Log.d(DevicesActivity.TAG, "Intent----------- " + uri);
 

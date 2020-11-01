@@ -71,10 +71,10 @@ public class FileTransferService extends JobIntentService
                 }*/
 
                 //Helper.copyFile(inputStream, outputStream);
-                Helper.preparePacketForServer(stringUriList, msg, outputStream);
+                new Helper(getApplicationContext()).preparePacketForServer(stringUriList, msg, outputStream);
                 Log.d(DevicesActivity.TAG, "Client: Data written");
                // Toast.makeText(context, "Data sent!", Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, MainActivity.class));
+                //context.startActivity(new Intent(context, MainActivity.class));
             }
             catch (IOException e)
             {

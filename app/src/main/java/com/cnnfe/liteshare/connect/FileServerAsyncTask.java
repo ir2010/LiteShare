@@ -27,6 +27,8 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
 {
     private Context context;
     private TextView statusText;
+    public String messageFromClient = "";
+    public int password = 1000;
 
     public FileServerAsyncTask(Context context, TextView statusText)
     {
@@ -59,7 +61,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             DataInputStream inputStream = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 
             //Helper.copyFile(inputStream, new FileOutputStream(f));
-            Helper.processPacketAtServer(inputStream);
+            new Helper(context).processPacketAtServer(password, messageFromClient, inputStream);
             serverSocket.close();
             //return f.getAbsolutePath();
             return context.getString(R.string.download_path);
@@ -81,7 +83,10 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
         if (s != null)
         {
             Toast.makeText(context, "File received!", Toast.LENGTH_SHORT).show();
-            Intent showFileIntent = new Intent();
+
+            DeviceDetailsFragment.statusText.setText(Helper.msg + Integer.toString(Helper.password));
+
+            /*Intent showFileIntent = new Intent();
             showFileIntent.setAction(Intent.ACTION_VIEW);
 
             Uri uri = Uri.parse(s);
@@ -90,7 +95,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             showFileIntent.setDataAndType(uri, "resource/folder");
             showFileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(showFileIntent);
-            context.startActivity(new Intent(context, MainActivity.class));
+            context.startActivity(new Intent(context, MainActivity.class));*/
         }
     }
 }

@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.cnnfe.liteshare.connect.DevicesActivity;
 import com.cnnfe.liteshare.R;
+import com.cnnfe.liteshare.connect.Helper;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -226,13 +227,20 @@ public class FileActivity extends AppCompatActivity
             // The result data contains a URI for the document or directory that the user selected.
             if (resultData != null)
             {
-                for(int i = 0; i < resultData.getClipData().getItemCount(); i++) {
-                    Uri uri = resultData.getClipData().getItemAt(i).getUri();
-                    stringUriList.add(uri.toString());
-                    selected_files.setText(selected_files.getText() + " " + uri.toString());
-                }
-
                 send_files.setEnabled(true);
+                if(resultData.getClipData() != null) {
+                    for (int i = 0; i < resultData.getClipData().getItemCount(); i++) {
+                        Uri uri = resultData.getClipData().getItemAt(i).getUri();
+                        stringUriList.add(uri.toString());
+                        selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
+                    }
+                }
+                else
+                {
+                    Uri uri = resultData.getData();
+                    stringUriList.add(resultData.getData().toString());
+                    selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
+                }
 
                 /*ContentResolver contentResolver = getApplicationContext().getContentResolver();
                 MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
