@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
 
+import java.util.ArrayList;
+
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import static android.Manifest.permission.ACCESS_WIFI_STATE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -30,7 +32,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     public static final String TAG = "liteshare";
     public static boolean isClient = false;
     public static String fileExtension;
-    public static String uriString;
+    public static ArrayList<String> stringUriList;
 
     static WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
     static WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
@@ -60,7 +62,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         }
 
         fileExtension = getIntent().getExtras().getString("extension");
-        uriString  = getIntent().getExtras().getString("fileUri");
+        stringUriList  = getIntent().getExtras().getStringArrayList("fileUri");
 
         fragmentList = (DevicesListFragment) getFragmentManager().findFragmentById(R.id.list_devices);
         fragmentDetails = (DeviceDetailsFragment) getFragmentManager().findFragmentById(R.id.details_device);
@@ -78,6 +80,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
 
         Toast.makeText(this, isClient?"client":"server", Toast.LENGTH_SHORT).show();
+        Helper.context = getApplicationContext();
     }
 
     @Override

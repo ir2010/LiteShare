@@ -3,7 +3,7 @@
 
     <string name="app_name">LiteShare</string>
     <string name="title_activity_file_show">FileShow</string>
-    <string name="download_path">/storage/emulated/0/</string>
+    <string name="download_path">/storage/emulated/0/liteshare/</string>
     <!--  Strings used for fragments for navigation  -->
     <string name="enable_p2p_button">P2P On/Off</string>
     <string name="discover_peers_button">Discover</string>

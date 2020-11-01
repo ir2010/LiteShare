@@ -26,6 +26,8 @@ import com.cnnfe.liteshare.connect.DevicesActivity;
 import com.cnnfe.liteshare.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class FileActivity extends AppCompatActivity
@@ -39,7 +41,7 @@ public class FileActivity extends AppCompatActivity
     EditText message_edittext;
     String message = "", fileExtension= "";
     TextView selected_files;
-    Uri uri = null;
+    ArrayList<String> stringUriList = new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -118,8 +120,8 @@ public class FileActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", uri);
-                intent.putExtra("extension", fileExtension);
+                intent.putExtra("fileUri", stringUriList);
+                //intent.putExtra("extension", fileExtension);
                 intent.putExtra("msg", message);
                 startActivity(intent);
             }
@@ -197,6 +199,7 @@ public class FileActivity extends AppCompatActivity
         //opening file picker
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setType(MIMEType);
 
         //for docs
@@ -213,7 +216,6 @@ public class FileActivity extends AppCompatActivity
         startActivityForResult(intent, CHOOSE_FILE);
     }
 
-   // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData)
     {
@@ -224,25 +226,18 @@ public class FileActivity extends AppCompatActivity
             // The result data contains a URI for the document or directory that the user selected.
             if (resultData != null)
             {
-                Uri uri = resultData.getData();
+                for(int i = 0; i < resultData.getClipData().getItemCount(); i++) {
+                    Uri uri = resultData.getClipData().getItemAt(i).getUri();
+                    stringUriList.add(uri.toString());
+                    selected_files.setText(selected_files.getText() + " " + uri.toString());
+                }
 
-                // Perform operations on the document using its URI.
-                //String path;
-
-                //String[] projection = { MediaStore.Images.Media.DATA };
-                //Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                //int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                //cursor.moveToFirst();
-
-                //path = cursor.getString(column_index);
-                //Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
-                selected_files.setText(uri.toString());
                 send_files.setEnabled(true);
 
-                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                /*ContentResolver contentResolver = getApplicationContext().getContentResolver();
                 MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
                 fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();*/
             }
         }
     }

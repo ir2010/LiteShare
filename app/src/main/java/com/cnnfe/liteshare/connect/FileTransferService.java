@@ -12,12 +12,17 @@ import androidx.core.app.JobIntentService;
 
 import com.cnnfe.liteshare.MainActivity;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class FileTransferService extends JobIntentService
 {
@@ -39,8 +44,9 @@ public class FileTransferService extends JobIntentService
         Context context = getApplicationContext();
         if(intent.getAction().equals(ACTION_SEND_FILE))
         {
-            Uri fileUri = Uri.parse(intent.getExtras().getString(EXTRAS_FILE_PATH));
+            ArrayList<String> stringUriList = intent.getExtras().getStringArrayList(EXTRAS_FILE_PATH);
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
+            String msg = intent.getExtras().getString(EXTRAS_MESSAGE);
 
             Socket socket = new Socket();
             int port = intent.getExtras().getInt(EXTRAS_GROUP_OWNER_PORT);
@@ -52,20 +58,22 @@ public class FileTransferService extends JobIntentService
 
                 Log.d(DevicesActivity.TAG, "Client socket - " + socket.isConnected());
 
-                OutputStream outputStream = socket.getOutputStream();
+               // OutputStream outputStream = socket.getOutputStream();
+                DataOutputStream outputStream = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 ContentResolver contentResolver = context.getContentResolver();
 
-                InputStream inputStream = null;
+                /*InputStream inputStream = null;
 
                 try {
-                    inputStream = contentResolver.openInputStream(fileUri);
+                   inputStream = contentResolver.openInputStream(fileUri);
                 } catch (FileNotFoundException e) {
                     Log.d(DevicesActivity.TAG, e.toString());
-                }
+                }*/
 
-                Helper.copyFile(inputStream, outputStream);
+                //Helper.copyFile(inputStream, outputStream);
+                Helper.preparePacketForServer(stringUriList, msg, outputStream);
                 Log.d(DevicesActivity.TAG, "Client: Data written");
-                Toast.makeText(context, "Data sent!", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "Data sent!", Toast.LENGTH_SHORT).show();
                 context.startActivity(new Intent(context, MainActivity.class));
             }
             catch (IOException e)

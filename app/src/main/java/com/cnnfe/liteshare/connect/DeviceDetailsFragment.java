@@ -22,6 +22,8 @@ import android.widget.TextView;
 
 import com.cnnfe.liteshare.R;
 
+import java.util.ArrayList;
+
 //A fragment that manages a particular peer and allows interaction with device i.e. setting up network connection and transferring data.
 
 public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener, WifiP2pManager.GroupInfoListener{
@@ -89,11 +91,11 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
             @Override
             public void onClick(View v) {
 
-                if(DevicesActivity.uriString != "")
+                String msg = getActivity().getIntent().getStringExtra("msg");
+                if(DevicesActivity.stringUriList.size() != 0 || msg != "")
                 {
-                    Uri uri = Uri.parse(DevicesActivity.uriString);
-                    String msg = getActivity().getIntent().getStringExtra("msg");
-                    sendFile(uri, msg);
+                    //Uri uri = Uri.parse(DevicesActivity.uriString);
+                    sendFile(DevicesActivity.stringUriList, msg);
                 }
             }
         });
@@ -170,16 +172,16 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view.setText(device.toString());
     }
 
-    private void sendFile(Uri uri, String msg)
+    private void sendFile(ArrayList<String> uriList, String msg)
     {
         TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
-        statusText.setText("Sending: " + uri);
-        Log.d(DevicesActivity.TAG, "Intent----------- " + uri);
+        statusText.setText("Sending data!");
+        //Log.d(DevicesActivity.TAG, "Intent----------- " + uri);
 
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
 
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
+        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uriList);
         serviceIntent.putExtra(FileTransferService.EXTRAS_MESSAGE, msg);
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
 
