@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Connect_devices.DevicesActivity"
+    tools:context=".connect.DevicesActivity"
     android:orientation="vertical">
 
     <fragment
         android:id="@+id/list_devices"
-        class="com.cnnfe.liteshare.Connect_devices.DevicesListFragment"
+        class="com.cnnfe.liteshare.connect.DevicesListFragment"
         android:layout_width="match_parent"
         android:layout_height="244dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/details_device"
-        class="com.cnnfe.liteshare.Connect_devices.DeviceDetailsFragment"
+        class="com.cnnfe.liteshare.connect.DeviceDetailsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-7dp"

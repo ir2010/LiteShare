@@ -1,6 +1,5 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
-import android.app.IntentService;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.Context;
@@ -36,7 +35,7 @@ public class FileTransferService extends JobIntentService
         Context context = getApplicationContext();
         if(intent.getAction().equals(ACTION_SEND_FILE))
         {
-            String fileUri = intent.getExtras().getString(EXTRAS_FILE_PATH);
+            Uri fileUri = Uri.parse(intent.getExtras().getString(EXTRAS_FILE_PATH));
             String host = intent.getExtras().getString(EXTRAS_GROUP_OWNER_ADDRESS);
 
             Socket socket = new Socket();
@@ -51,15 +50,16 @@ public class FileTransferService extends JobIntentService
 
                 OutputStream outputStream = socket.getOutputStream();
                 ContentResolver contentResolver = context.getContentResolver();
+
                 InputStream inputStream = null;
 
                 try {
-                    inputStream = contentResolver.openInputStream(Uri.parse(fileUri));
+                    inputStream = contentResolver.openInputStream(fileUri);
                 } catch (FileNotFoundException e) {
                     Log.d(DevicesActivity.TAG, e.toString());
                 }
 
-                DeviceDetailsFragment.copyFile(inputStream, outputStream);
+                Helper.copyFile(inputStream, outputStream);
                 Log.d(DevicesActivity.TAG, "Client: Data written");
             }
             catch (IOException e)

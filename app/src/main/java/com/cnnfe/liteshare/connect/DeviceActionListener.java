@@ -1,7 +1,6 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -42,7 +41,7 @@ public class DeviceActionListener
     {
         if (ActivityCompat.checkSelfPermission(context, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
-            manager.connect(channel, config, new WifiP2pManager.ActionListener()
+            /*manager.connect(channel, config, new WifiP2pManager.ActionListener()
             {
                 @Override
                 public void onSuccess()
@@ -55,6 +54,21 @@ public class DeviceActionListener
                 public void onFailure(int reason)
                 {
                     Toast.makeText(context, "Connect failed. Retry.", Toast.LENGTH_SHORT).show();
+                    if(DeviceDetailsFragment.progressDialog != null && DeviceDetailsFragment.progressDialog.isShowing())
+                        DeviceDetailsFragment.progressDialog.dismiss();
+                }
+            });*/
+            manager.createGroup(channel, config, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onSuccess() {
+                    Toast.makeText(context, "Connection started", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailure(int reason) {
+                    Toast.makeText(context, "Connect failed. Retry.", Toast.LENGTH_SHORT).show();
+                    if(DeviceDetailsFragment.progressDialog != null && DeviceDetailsFragment.progressDialog.isShowing())
+                        DeviceDetailsFragment.progressDialog.dismiss();
                 }
             });
         }

@@ -1,7 +1,6 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.app.Application;
-import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,6 +64,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             {
                 if (ActivityCompat.checkSelfPermission(activity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
+                    Toast.makeText(context, "search started", Toast.LENGTH_SHORT).show();
                     manager.requestPeers(channel, (WifiP2pManager.PeerListListener) activity.getFragmentManager().findFragmentById(R.id.list_devices));
                 }
                 else
@@ -86,10 +86,12 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (isNetworkAvailable(activity.getApplication()))
             {
                 DeviceDetailsFragment fragment = (DeviceDetailsFragment) activity.getFragmentManager().findFragmentById(R.id.details_device);
-                manager.requestConnectionInfo(channel, fragment);
+                //manager.requestConnectionInfo(channel, fragment);
+                manager.requestGroupInfo(channel, fragment);
             }
             else {
                 // It's a disconnect
+                Toast.makeText(context, "Network not available", Toast.LENGTH_SHORT).show();
                  activity.resetData();
             }
         }
@@ -111,7 +113,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 return false;
 
             NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);
-            return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
+            return actNw != null && (actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)|| actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) || actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH));
         }
         else {
             NetworkInfo nwInfo = connectivityManager.getActiveNetworkInfo();

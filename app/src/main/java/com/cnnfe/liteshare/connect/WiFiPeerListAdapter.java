@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.content.Context;
 import android.net.wifi.p2p.WifiP2pDevice;

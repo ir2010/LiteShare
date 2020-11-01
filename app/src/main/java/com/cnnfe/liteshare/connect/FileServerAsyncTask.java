@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -46,7 +45,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             Log.d(DevicesActivity.TAG, "Server: Connection done");
 
             //creating the file where downloaded file will be stored
-            final File f = new File(context.getString(R.string.download_path) + System.currentTimeMillis() + ".jpg");
+            final File f = new File(context.getString(R.string.download_path) + System.currentTimeMillis() + "." + DevicesActivity.fileExtension);
 
             File dirs = new File(f.getParent());
             //if the parent directory doesn't exist already, create
@@ -57,7 +56,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             Log.d(DevicesActivity.TAG, "Server: Copying files "+ f.toString());
             InputStream inputStream = client.getInputStream();
 
-            DeviceDetailsFragment.copyFile(inputStream, new FileOutputStream(f));
+            Helper.copyFile(inputStream, new FileOutputStream(f));
             serverSocket.close();
             return f.getAbsolutePath();
         }

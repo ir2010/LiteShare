@@ -1,15 +1,12 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -20,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
@@ -32,6 +28,9 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 public class DevicesActivity extends AppCompatActivity implements WifiP2pManager.ChannelListener
 {
     public static final String TAG = "liteshare";
+    public static boolean isClient = false;
+    public static String fileExtension;
+    public static String uriString;
 
     private WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
     private WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
@@ -60,6 +59,9 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
             ActivityCompat.requestPermissions(this, permissions, 1);
         }
 
+        fileExtension = getIntent().getExtras().getString("extension");
+        uriString  = getIntent().getExtras().getString("fileUri");
+
         fragmentList = (DevicesListFragment) getFragmentManager().findFragmentById(R.id.list_devices);
         fragmentDetails = (DeviceDetailsFragment) getFragmentManager().findFragmentById(R.id.details_device);
 
@@ -72,11 +74,14 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+
+        Toast.makeText(this, isClient?"client":"server", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         receiver = new WiFiDirectBroadcastReceiver(manager, channel, this);
         registerReceiver(receiver, intentFilter);
     }
@@ -85,6 +90,22 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     public void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        manager.removeGroup(channel, new WifiP2pManager.ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.d(TAG, "Group removed!");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+
+            }
+        });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.File_list;
+package com.cnnfe.liteshare.filepicker;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

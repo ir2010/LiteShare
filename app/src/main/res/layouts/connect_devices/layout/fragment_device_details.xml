@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/details_view"
+    android:visibility="gone"
     android:orientation="vertical"
 
-    tools:context=".Connect_devices.DeviceDetailsFragment">
+    tools:context=".connect.DeviceDetailsFragment">
 
     <LinearLayout
         android:orientation="vertical"
@@ -23,6 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
+                android:textSize="12sp"
                 android:background="@drawable/round_button"
                 android:text="@string/connect_peer_button" />
 
@@ -32,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
                 android:layout_weight="0.3"
+                android:textSize="12sp"
                 android:text="@string/disconnect_peer_button" />
             <Button
                 android:layout_width="wrap_content"
@@ -40,6 +43,8 @@
                 android:background="@drawable/round_button"
                 android:text="Send"
                 android:layout_weight="0.3"
+                android:textSize="12sp"
+                android:visibility="gone"
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
 

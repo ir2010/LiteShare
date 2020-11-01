@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pGroup;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
@@ -17,23 +18,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 //A fragment that manages a particular peer and allows interaction with device i.e. setting up network connection and transferring data.
 
-public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener {
+public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener, WifiP2pManager.GroupInfoListener{
 
     private View mContentView = null;
     private WifiP2pDevice selectedDevice;
     private WifiP2pInfo info;
+    private WifiP2pGroup group;
 
-    ProgressDialog progressDialog = null;
+    static ProgressDialog progressDialog = null;
 
 
     public DeviceDetailsFragment()
@@ -53,6 +50,11 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         // Inflate the layout for this fragment
         mContentView = inflater.inflate(R.layout.fragment_device_details, container, false);
 
+        /*if(!DevicesActivity.isClient)
+        {
+            mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
+        }*/
+
         mContentView.findViewById(R.id.btn_connect).setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -61,6 +63,11 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
                 WifiP2pConfig config = new WifiP2pConfig();
                 config.deviceAddress = selectedDevice.deviceAddress;
                 config.wps.setup = WpsInfo.PBC;  // = 0
+
+                if(!DevicesActivity.isClient)
+                    config.groupOwnerIntent = 15;
+                else
+                    config.groupOwnerIntent = 0;
 
                 if (progressDialog != null && progressDialog.isShowing()) {
                     progressDialog.dismiss();
@@ -81,8 +88,12 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         mContentView.findViewById(R.id.btn_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse(getActivity().getIntent().getExtras().getString("fileUri"));
-                sendFile(uri);
+
+                if(DevicesActivity.uriString != "")
+                {
+                    Uri uri = Uri.parse(DevicesActivity.uriString);
+                    sendFile(uri);
+                }
             }
         });
 
@@ -106,26 +117,29 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
-        if(info.groupFormed && info.isGroupOwner)
+        if(info.groupFormed && !DevicesActivity.isClient)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
         else if(info.groupFormed)
         {
+            mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
         }
         else
         {
-            Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();
+            mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
+            //Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();
         }
 
-        mContentView.findViewById(R.id.btn_connect).setEnabled(false);
+       // mContentView.findViewById(R.id.btn_connect).setEnabled(false);
     }
 
     public void resetViews()
     {
-        mContentView.findViewById(R.id.btn_connect).setVisibility(View.VISIBLE);
-        mContentView.findViewById(R.id.btn_connect).setEnabled(true);
+        //mContentView.findViewById(R.id.btn_connect).setVisibility(View.VISIBLE);
+        //mContentView.findViewById(R.id.btn_connect).setEnabled(true);
+        this.getView().setVisibility(View.GONE);
 
         TextView view = (TextView) mContentView.findViewById(R.id.device_address);
         view.setText(R.string.empty);
@@ -162,32 +176,43 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
 
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
-        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, group.groupOwnerAddress.getHostAddress());
 
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
         FileTransferService.enqueueWork(getActivity(), serviceIntent);
     }
 
-    public static boolean copyFile(InputStream inputStream, OutputStream outputStream)
-    {
-        byte buf[] = new byte[1024];
-        int len;
+    @Override
+    public void onGroupInfoAvailable(WifiP2pGroup group) {
 
-        try
+        if (progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+
+        this.group = group;
+        this.getView().setVisibility(View.VISIBLE);
+
+        // The owner IP is now known.
+        TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
+        view.setText(getResources().getString(R.string.group_owner_text) + ((this.group.isGroupOwner()) ? "yes": "no"));
+
+        // InetAddress from WifiP2pInfo struct.
+        view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
+        view.setText("Group Owner IP - " + ((this.group.getOwner() != null) ? this.group.getOwner(): "NULL"));
+
+        if(this.group.groupFormed && this.group.isGroupOwner)
         {
-            while((len = inputStream.read(buf)) != -1)
-            {
-                outputStream.write(buf, 0, len);
-            }
-            outputStream.close();
-            inputStream.close();
+            new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
-        catch (IOException e)
+        else if(this.group.groupFormed)
         {
-            Log.d(DevicesActivity.TAG, e.toString());
-            return false;
+            mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
+            ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
         }
-        return true;
+        else
+        {
+            mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
+            //Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();
+        }
     }
 }

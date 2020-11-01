@@ -1,27 +1,20 @@
-package com.cnnfe.liteshare.Connect_devices;
+package com.cnnfe.liteshare.connect;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 
-import android.app.Fragment;
 import android.app.ListFragment;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,9 +23,8 @@ import com.cnnfe.liteshare.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.cnnfe.liteshare.Connect_devices.Helper;
 
-import static com.cnnfe.liteshare.Connect_devices.Helper.getDeviceStatus;
+import static com.cnnfe.liteshare.connect.Helper.getDeviceStatus;
 
 public class DevicesListFragment extends ListFragment implements WifiP2pManager.PeerListListener {
     private List<WifiP2pDevice> peers = new ArrayList<WifiP2pDevice>();
@@ -59,7 +51,8 @@ public class DevicesListFragment extends ListFragment implements WifiP2pManager.
     }
 
     @Override
-    public void onPeersAvailable(WifiP2pDeviceList peerList) {
+    public void onPeersAvailable(WifiP2pDeviceList peerList)
+    {
         if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
 

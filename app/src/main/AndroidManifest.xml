@@ -28,7 +28,7 @@
 
         <!-- Used for transferring files  after a successful connection -->
         <service
-            android:name=".Connect_devices.FileTransferService"
+            android:name=".connect.FileTransferService"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
@@ -47,9 +47,9 @@
             android:name="com.google.android.actions"
             android:resource="@xml/round_button" />
 
-        <activity android:name=".Connect_devices.DevicesActivity" />
-        <activity android:name=".File_list.AppShow" />
-        <activity android:name=".File_list.FileActivity" />
+        <activity android:name=".connect.DevicesActivity" />
+        <activity android:name=".filepicker.AppShow" />
+        <activity android:name=".filepicker.FileActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>

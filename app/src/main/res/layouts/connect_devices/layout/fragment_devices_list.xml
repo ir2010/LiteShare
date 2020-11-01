@@ -12,7 +12,7 @@
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".Connect_devices.DevicesListFragment"
+    tools:context=".connect.DevicesListFragment"
     android:orientation="vertical"
     android:paddingTop="3dp">
 

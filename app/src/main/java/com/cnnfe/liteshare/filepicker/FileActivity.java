@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.File_list;
+package com.cnnfe.liteshare.filepicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,18 +6,19 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cnnfe.liteshare.Connect_devices.DevicesActivity;
-import com.cnnfe.liteshare.MainActivity;
+import com.cnnfe.liteshare.connect.DevicesActivity;
 import com.cnnfe.liteshare.R;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -106,8 +107,16 @@ public class FileActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
+                ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+                String fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
+
+                DevicesActivity.isClient = true;
+
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
                 intent.putExtra("fileUri", uri.toString());
+                intent.putExtra("extension", fileExtension);
                 startActivity(intent);
             }
         });
