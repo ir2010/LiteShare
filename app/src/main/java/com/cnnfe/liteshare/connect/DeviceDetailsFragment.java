@@ -176,7 +176,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
 
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
-        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, group.groupOwnerAddress.getHostAddress());
+        //serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, group.groupOwnerAddress.getHostAddress());
 
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
@@ -200,7 +200,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((this.group.getOwner() != null) ? this.group.getOwner(): "NULL"));
 
-        if(this.group.groupFormed && this.group.isGroupOwner)
+        /*if(this.group.groupFormed && this.group.isGroupOwner)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
@@ -213,6 +213,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         {
             mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
             //Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 }

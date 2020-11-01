@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
-
 import java.util.ArrayList;
 import java.util.List;
 

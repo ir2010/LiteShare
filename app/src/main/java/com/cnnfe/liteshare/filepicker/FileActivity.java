@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class FileActivity extends AppCompatActivity
     private static final int CHOOSE_FILE = 1;
 
     Button docs, images, audios, videos, apps, send_files;
+    String input_text;
     TextView selected_files;
     Uri uri = null;
 
@@ -48,7 +50,12 @@ public class FileActivity extends AppCompatActivity
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
 
+
         send_files.setEnabled(false);
+
+
+        EditText txtname = findViewById(R.id.edit_input);
+        String input_text  =  txtname.getText().toString();
 
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
