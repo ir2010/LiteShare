@@ -93,7 +93,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
             @Override
             public void onClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+             /*   AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setMessage("Want to send using qr code?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -104,14 +104,14 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
-
+*/
                                 if(DevicesActivity.uriString != "")
                                 {
                                     Uri uri = Uri.parse(DevicesActivity.uriString);
                                     sendFile(uri);
                                 }
-                            }
-                        });
+           //                 }
+          //              });
 
             }
         });
@@ -123,8 +123,10 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     public  void onConnectionInfoAvailable(WifiP2pInfo info)
     {
 
-        Intent myIntent = new Intent(getActivity(),   QRScannerActivity.class);
-        startActivity(myIntent);
+      /*  Intent myIntent = new Intent(getActivity(),   QRScannerActivity.class);
+        startActivity(myIntent);*/
+
+
 
         if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
@@ -141,6 +143,8 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
         macAdd=info.groupOwnerAddress.getHostAddress();
+        //storing mac address for qr
+
         if(info.groupFormed && !DevicesActivity.isClient)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();

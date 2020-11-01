@@ -12,16 +12,22 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cnnfe.liteshare.connect.DevicesActivity;
 import com.cnnfe.liteshare.R;
+import com.cnnfe.liteshare.connect.Helper;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.ArrayList;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
@@ -31,10 +37,11 @@ public class FileActivity extends AppCompatActivity
     //ArrayList<String> listOfIcons = new ArrayList<>();
     private static final int CHOOSE_FILE = 1;
 
-    Button docs, images, audios, videos, apps, send_files;
-    String input_text;
+    Button docs, images, audios, videos, send_files, apps;
+    EditText message_edittext;
+    String message = "", fileExtension= "";
     TextView selected_files;
-    Uri uri = null;
+    ArrayList<String> stringUriList = new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -49,14 +56,10 @@ public class FileActivity extends AppCompatActivity
         apps = (Button) findViewById(R.id.apps);
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
+        message_edittext = (EditText) findViewById(R.id.edit_input);
 
 
         send_files.setEnabled(false);
-
-
-        EditText txtname = findViewById(R.id.edit_input);
-        String input_text  =  txtname.getText().toString();
-
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -114,17 +117,30 @@ public class FileActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                ContentResolver contentResolver = getApplicationContext().getContentResolver();
-                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-                String fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
-                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();
-
-                DevicesActivity.isClient = true;
-
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", uri.toString());
-                intent.putExtra("extension", fileExtension);
+                intent.putExtra("fileUri", stringUriList);
+                //intent.putExtra("extension", fileExtension);
+                intent.putExtra("msg", message);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        message_edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                send_files.setEnabled(true);
+                message = message_edittext.getText().toString();
             }
         });
 
@@ -182,6 +198,7 @@ public class FileActivity extends AppCompatActivity
         //opening file picker
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setType(MIMEType);
 
         //for docs
@@ -198,7 +215,6 @@ public class FileActivity extends AppCompatActivity
         startActivityForResult(intent, CHOOSE_FILE);
     }
 
-   // @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData)
     {
@@ -209,19 +225,25 @@ public class FileActivity extends AppCompatActivity
             // The result data contains a URI for the document or directory that the user selected.
             if (resultData != null)
             {
-                uri = resultData.getData();
-                // Perform operations on the document using its URI.
-                //String path;
-
-                //String[] projection = { MediaStore.Images.Media.DATA };
-                //Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-                //int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                //cursor.moveToFirst();
-
-                //path = cursor.getString(column_index);
-                Toast.makeText(this, uri.toString(), Toast.LENGTH_LONG).show();
-                selected_files.setText(uri.toString());
                 send_files.setEnabled(true);
+                if(resultData.getClipData() != null) {
+                    for (int i = 0; i < resultData.getClipData().getItemCount(); i++) {
+                        Uri uri = resultData.getClipData().getItemAt(i).getUri();
+                        stringUriList.add(uri.toString());
+                        selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
+                    }
+                }
+                else
+                {
+                    Uri uri = resultData.getData();
+                    stringUriList.add(resultData.getData().toString());
+                    selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
+                }
+
+                /*ContentResolver contentResolver = getApplicationContext().getContentResolver();
+                MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+                fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+                Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();*/
             }
         }
     }

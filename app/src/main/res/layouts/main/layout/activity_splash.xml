@@ -13,7 +13,7 @@
             android:id="@+id/splashbg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/splash">
+            android:background="@color/purple_200">
 
             <LinearLayout
                 android:id="@+id/splash"
@@ -29,7 +29,7 @@
                     android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:src="@mipmap/ic_launcher"
-                    app:srcCompat="@drawable/appicon" />
+                    app:srcCompat="@drawable/splash" />
 
                 <TextView
                     android:id="@+id/splashTexts"

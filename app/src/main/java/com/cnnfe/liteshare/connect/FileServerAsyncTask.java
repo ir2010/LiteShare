@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+import com.cnnfe.liteshare.MainActivity;
 import com.cnnfe.liteshare.R;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,6 +27,8 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
 {
     private Context context;
     private TextView statusText;
+    public String messageFromClient = "";
+    public int password = 1000;
 
     public FileServerAsyncTask(Context context, TextView statusText)
     {
@@ -45,20 +50,21 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             Log.d(DevicesActivity.TAG, "Server: Connection done");
 
             //creating the file where downloaded file will be stored
-            final File f = new File(context.getString(R.string.download_path) + System.currentTimeMillis() + "." + DevicesActivity.fileExtension);
+            //final File f = new File(context.getString(R.string.download_path));
 
-            File dirs = new File(f.getParent());
+            /*File dirs = new File(f.getParent());
             //if the parent directory doesn't exist already, create
             if(!dirs.exists())
                 dirs.mkdirs();
-            f.createNewFile();
+            f.createNewFile();*/
 
-            Log.d(DevicesActivity.TAG, "Server: Copying files "+ f.toString());
-            InputStream inputStream = client.getInputStream();
+            DataInputStream inputStream = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 
-            Helper.copyFile(inputStream, new FileOutputStream(f));
+            //Helper.copyFile(inputStream, new FileOutputStream(f));
+            new Helper(context).processPacketAtServer(password, messageFromClient, inputStream);
             serverSocket.close();
-            return f.getAbsolutePath();
+            //return f.getAbsolutePath();
+            return context.getString(R.string.download_path);
         }
         catch (IOException e)
         {
@@ -77,14 +83,19 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
         if (s != null)
         {
             Toast.makeText(context, "File received!", Toast.LENGTH_SHORT).show();
-            Intent showFileIntent = new Intent();
+
+            DeviceDetailsFragment.statusText.setText(Helper.msg + Integer.toString(Helper.password));
+
+            /*Intent showFileIntent = new Intent();
             showFileIntent.setAction(Intent.ACTION_VIEW);
 
-            Uri uri = FileProvider.getUriForFile(context, "com.cnnfe.liteshare.provider", new File(s));
-            String mimeType = context.getContentResolver().getType(uri);
-            showFileIntent.setDataAndType(uri, mimeType);
+            Uri uri = Uri.parse(s);
+            //Uri uri = FileProvider.getUriForFile(context, "com.cnnfe.liteshare.provider", new File(s));
+            //String mimeType = context.getContentResolver().getType(uri);
+            showFileIntent.setDataAndType(uri, "resource/folder");
             showFileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(showFileIntent);
+            context.startActivity(new Intent(context, MainActivity.class));*/
         }
     }
 }

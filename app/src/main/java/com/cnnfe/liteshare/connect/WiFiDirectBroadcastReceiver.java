@@ -64,7 +64,6 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             {
                 if (ActivityCompat.checkSelfPermission(activity, ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                 {
-                    Toast.makeText(context, "search started", Toast.LENGTH_SHORT).show();
                     manager.requestPeers(channel, (WifiP2pManager.PeerListListener) activity.getFragmentManager().findFragmentById(R.id.list_devices));
                 }
                 else
@@ -86,8 +85,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             if (isNetworkAvailable(activity.getApplication()))
             {
                 DeviceDetailsFragment fragment = (DeviceDetailsFragment) activity.getFragmentManager().findFragmentById(R.id.details_device);
-                //manager.requestConnectionInfo(channel, fragment);
-                manager.requestGroupInfo(channel, fragment);
+                manager.requestConnectionInfo(channel, fragment);
             }
             else {
                 // It's a disconnect
@@ -100,6 +98,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             DevicesListFragment fragment = (DevicesListFragment) activity.getFragmentManager().findFragmentById(R.id.list_devices);
             fragment.updateThisDevice((WifiP2pDevice) intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE));
         }
+
     }
 
     private Boolean isNetworkAvailable(Application application)
