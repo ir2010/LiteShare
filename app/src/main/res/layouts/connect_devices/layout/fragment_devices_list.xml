@@ -96,9 +96,11 @@
 
     <TextView
         android:id="@id/android:empty"
-        android:layout_width="404dp"
+        android:layout_width="418dp"
         android:layout_height="409dp"
         android:layout_gravity="center"
-        android:text="@string/empty_message"
-        android:background="@color/backgroundColor"/>
+        android:background="@color/backgroundColor"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:text="@string/empty_message" />
 </LinearLayout>

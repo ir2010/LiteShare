@@ -1,6 +1,9 @@
 package com.cnnfe.liteshare.filepicker;
 
+import android.app.Activity;
 import android.app.ListActivity;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -9,11 +12,13 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +27,29 @@ public class AppShow extends ListActivity
     private PackageManager packageManager = null;
     private List<ApplicationInfo> applist = null;
     private AppAdapter listadapter = null;
+    public ArrayList<String> uriList = new ArrayList<String>();
+    Button selectButton;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_show);
+
+        selectButton = (Button) findViewById(R.id.select_apps);
+
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent();
+                intent.putStringArrayListExtra("apps", uriList);
+                Toast.makeText(AppShow.this, "done", Toast.LENGTH_SHORT).show();
+                setResult(Activity.RESULT_OK, intent);
+                finish();
+            }
+        });
+
+        //uriList = FileActivity.stringUriList;
 
         packageManager = getPackageManager();
         new LoadApplications().execute();
@@ -41,13 +63,29 @@ public class AppShow extends ListActivity
 
         try {
 
-            Intent intent = packageManager.getLaunchIntentForPackage(app.packageName);
+            //Intent intent = packageManager.getLaunchIntentForPackage(app.packageName);
 
-            if (intent != null) {
+            /*if (intent != null) {
 
                 startActivity(intent);
 
+            }*/
+
+            Uri uri;
+            //Toast.makeText(this, app.sourceDir, Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >=  Build.VERSION_CODES.N) {
+                //Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                uri = Uri.parse(app.sourceDir);
+                uriList.add(uri.toString());
+                Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
+            } else{
+                Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+                uri = Uri.fromFile(new File(app.sourceDir));
+                uriList.add(uri.toString());
+                Toast.makeText(this, uri.toString(), Toast.LENGTH_SHORT).show();
             }
+
+
         } catch (ActivityNotFoundException e) {
 
             Toast.makeText(AppShow.this, e.getMessage(), Toast.LENGTH_LONG).show();

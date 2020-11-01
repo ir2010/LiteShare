@@ -5,20 +5,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.content.FileProvider;
-
-import com.cnnfe.liteshare.MainActivity;
 import com.cnnfe.liteshare.R;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,10 +56,11 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             DataInputStream inputStream = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 
             //Helper.copyFile(inputStream, new FileOutputStream(f));
-            new Helper(context).processPacketAtServer(password, messageFromClient, inputStream);
+            boolean res = new Helper(context).processPacketAtServer(password, messageFromClient, inputStream);
             serverSocket.close();
             //return f.getAbsolutePath();
-            return context.getString(R.string.download_path);
+
+            return res ? context.getString(R.string.download_path): null;
         }
         catch (IOException e)
         {
@@ -82,9 +78,24 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
     protected void onPostExecute(String s) {
         if (s != null)
         {
-            Toast.makeText(context, "File received!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "File received! Check inside folder LiteShare!", Toast.LENGTH_LONG).show();
 
-            DeviceDetailsFragment.statusText.setText(Helper.msg + Integer.toString(Helper.password));
+
+            DeviceDetailsFragment.statusText.setText("Message from peer: " + Helper.msg);
+            DeviceDetailsFragment.msgText.setVisibility(View.VISIBLE);
+
+
+            try
+            {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                Uri uri = Uri.parse(s);
+                intent.setDataAndType(uri, "*/*");
+                context.startActivity(intent);
+            }
+            catch(Exception e)
+            {
+
+            }
 
             /*Intent showFileIntent = new Intent();
             showFileIntent.setAction(Intent.ACTION_VIEW);

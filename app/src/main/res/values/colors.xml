@@ -8,6 +8,12 @@
     <color name="textColor">#FFFFFF</color>
     <color name="splash">#9874a7</color>
 
+    <color name="black_overlay">#66000000</color>
+
+    <color name="colour_highlight_grey">#ff666666</color>
+    <color name="colour_dark_blue">#ff000066</color>
+    <color name="colour_dark_green">#ff006600</color>
+
 
     <color name="colorControlNormal">#222</color>
     <color name="colorError">#EF020B</color>

@@ -17,13 +17,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
      <Button
          android:id="@+id/apps"
-         android:layout_width="100dp"
+         android:layout_width="80dp"
          android:layout_height="wrap_content"
          android:layout_gravity="left"
-         android:layout_marginLeft="40dp"
-         android:layout_marginTop="60dp"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="20dp"
          android:background="@color/purple_200"
          android:drawableTop="@drawable/apkicon"
          android:drawablePadding="10dp"
@@ -34,14 +35,13 @@
          app:backgroundTint="@color/purple_200"
          app:elevation="5dp" />
 
-
      <Button
          android:id="@+id/docs"
-         android:layout_width="100dp"
+         android:layout_width="80dp"
          android:layout_height="wrap_content"
          android:layout_gravity="right"
-         android:layout_marginTop="60dp"
-         android:layout_marginRight="40dp"
+         android:layout_marginTop="20dp"
+         android:layout_marginRight="10dp"
          android:background="@color/purple_200"
          android:drawableTop="@drawable/fileicon"
          android:drawablePadding="50dp"
@@ -54,11 +54,11 @@
 
      <Button
          android:id="@+id/images"
-         android:layout_width="100dp"
+         android:layout_width="80dp"
          android:layout_height="100dp"
          android:layout_gravity="left"
-         android:layout_marginLeft="40dp"
-         android:layout_marginTop="250dp"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="150dp"
          android:background="@android:color/holo_purple"
          android:drawableTop="@drawable/imicon"
          android:drawablePadding="50dp"
@@ -71,11 +71,11 @@
 
      <Button
          android:id="@+id/audios"
-         android:layout_width="100dp"
+         android:layout_width="85dp"
          android:layout_height="wrap_content"
          android:layout_gravity="right"
-         android:layout_marginTop="250dp"
-         android:layout_marginRight="40dp"
+         android:layout_marginTop="150dp"
+         android:layout_marginRight="10dp"
          android:background="@android:color/holo_purple"
          android:drawableTop="@drawable/musicicon"
          android:drawablePadding="50dp"
@@ -88,10 +88,10 @@
 
      <Button
          android:id="@+id/videos"
-         android:layout_width="100dp"
+         android:layout_width="85dp"
          android:layout_height="wrap_content"
          android:layout_gravity="center_horizontal"
-         android:layout_marginTop="150dp"
+         android:layout_marginTop="100dp"
          android:background="@android:color/holo_purple"
          android:drawableTop="@drawable/videoicon"
          android:drawablePadding="50dp"
@@ -104,29 +104,20 @@
  </FrameLayout>
 
 
-
-
-    <TextView
-        android:layout_width="102dp"
-        android:layout_height="13dp"
-        android:text="Selected files: "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.597" />
-
     <TextView
         android:id="@+id/selected_files"
-        android:layout_width="236dp"
+        android:layout_width="match_parent"
         android:layout_height="128dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.805"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.711" />
+
     <EditText
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -134,9 +125,11 @@
         android:id="@+id/edit_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_200"
         android:layout_weight="1.0"
         android:layout_marginBottom="120dp"
-        android:hint="Got something to say ?" />
+        android:enabled="false"
+        android:hint="Add a note with the file...(optional)" />
 
     <Button
         android:id="@+id/send_file"

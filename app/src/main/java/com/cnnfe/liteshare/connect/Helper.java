@@ -1,12 +1,18 @@
 package com.cnnfe.liteshare.connect;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
 
@@ -14,7 +20,6 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,7 +33,8 @@ public class Helper
 {
     Context context;
     static String msg;
-    static int password;
+    static int passwordAtClient;
+    int passwordAtServer;
 
     public Helper(Context context) {
         this.context = context;
@@ -91,12 +97,13 @@ public class Helper
         }
     }
 
-    private static void writePassword(DataOutputStream outputStream) throws IOException
+    private void writePassword(DataOutputStream outputStream) throws IOException
     {
         Random random = new Random();
-        int password = random.nextInt(8999) + 1000;
+        passwordAtClient = random.nextInt(8999) + 1000;
+        //createPassword();
 
-        outputStream.writeInt(password);
+        outputStream.writeInt(passwordAtClient);
         outputStream.flush();
     }
 
@@ -138,23 +145,27 @@ public class Helper
         }
     }
 
-    public void processPacketAtServer(int passwor, String ms, DataInputStream inputStream)
+    public boolean processPacketAtServer(int passwor, String ms, DataInputStream inputStream)
     {
         try
         {
-            password = inputStream.readInt();
+            passwordAtServer = inputStream.readInt();
+            //if(checkPassword()){
             msg = inputStream.readUTF();
-            Log.d(DevicesActivity.TAG, password + " "+msg);
-            receiveFiles(inputStream);
+            Log.d(DevicesActivity.TAG, passwordAtServer + " "+msg);
+            boolean res = receiveFiles(inputStream);
             inputStream.close();
+            return res;
+        //}
         }
         catch (IOException e)
         {
             Log.e(DevicesActivity.TAG, e.toString());
+            return false;
         }
     }
 
-    private void receiveFiles(DataInputStream inputStream)throws IOException
+    private boolean receiveFiles(DataInputStream inputStream)throws IOException
     {
         int noOfFiles = inputStream.readInt();
 
@@ -182,18 +193,22 @@ public class Helper
             }
             outputStream.close();
         }
-
+        return noOfFiles != 0;
     }
-
 
     public String getNameFromURI(Uri uri)
     {
+        try{
         String name;
         Cursor c = context.getContentResolver().query(uri, null, null, null, null);
         c.moveToFirst();
         name = c.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME));
         c.close();
-        return name;
+        return name;}
+        catch (Exception e)
+        {
+            return "";
+        }
     }
 
     private long getFileSize(Uri uri) {
@@ -252,5 +267,61 @@ public class Helper
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean checkPassword()
+    {
+        boolean matched = false;
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+        alertDialog.setMessage("Enter Password");
+
+        final EditText input = new EditText(context);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        input.setLayoutParams(lp);
+        alertDialog.setView(input);
+        alertDialog.setIcon(R.drawable.ic_baseline_vpn_key_24);
+
+        alertDialog.setPositiveButton("OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        String password = input.getText().toString();
+                        if (password.compareTo("") == 0) {
+                            if (passwordAtServer == Integer.valueOf(password)) {
+                                input.setTextColor(Color.GREEN);
+                                Toast.makeText(context,
+                                        "Password Matched", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            } else {
+                                input.setTextColor(Color.RED);
+                                Toast.makeText(context,
+                                        "Wrong Password!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+
+        alertDialog.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+        String password = input.getText().toString();
+
+        return password.equals("") ? false: passwordAtServer == Integer.valueOf(password);
+    }
+
+    public void createPassword()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(passwordAtClient)
+                .setTitle("Password is: ");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 }

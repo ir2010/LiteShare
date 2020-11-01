@@ -1,5 +1,7 @@
 package com.cnnfe.liteshare.connect;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.Context;
@@ -72,6 +74,9 @@ public class FileTransferService extends JobIntentService
 
                 //Helper.copyFile(inputStream, outputStream);
                 new Helper(getApplicationContext()).preparePacketForServer(stringUriList, msg, outputStream);
+
+                 //new Helper(context).createPassword();
+
                 Log.d(DevicesActivity.TAG, "Client: Data written");
                // Toast.makeText(context, "Data sent!", Toast.LENGTH_SHORT).show();
                 //context.startActivity(new Intent(context, MainActivity.class));

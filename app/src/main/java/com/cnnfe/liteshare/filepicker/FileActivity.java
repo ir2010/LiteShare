@@ -36,12 +36,14 @@ public class FileActivity extends AppCompatActivity
     //ArrayList<String> listOfFiles = new ArrayList<>();
     //ArrayList<String> listOfIcons = new ArrayList<>();
     private static final int CHOOSE_FILE = 1;
+    private static final int CHOOSE_APP = 2;
 
     Button docs, images, audios, videos, send_files, apps;
     EditText message_edittext;
     String message = "", fileExtension= "";
     TextView selected_files;
-    ArrayList<String> stringUriList = new ArrayList<String>();
+
+    public ArrayList<String> stringUriList = new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -60,6 +62,7 @@ public class FileActivity extends AppCompatActivity
 
 
         send_files.setEnabled(false);
+        selected_files.setText("Selected files: ");
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -109,7 +112,7 @@ public class FileActivity extends AppCompatActivity
 
                 //chooseFile("application/*");
                 Intent intent = new Intent(FileActivity.this, AppShow.class);
-                startActivity(intent);
+                startActivityForResult(intent, CHOOSE_APP);
             }
         });
 
@@ -139,8 +142,11 @@ public class FileActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                send_files.setEnabled(true);
                 message = message_edittext.getText().toString();
+                if(message == "" || message == " " || message == "  ")
+                    send_files.setEnabled(false);
+                else
+                    send_files.setEnabled(true);
             }
         });
 
@@ -230,7 +236,7 @@ public class FileActivity extends AppCompatActivity
                     for (int i = 0; i < resultData.getClipData().getItemCount(); i++) {
                         Uri uri = resultData.getClipData().getItemAt(i).getUri();
                         stringUriList.add(uri.toString());
-                        selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
+                        selected_files.setText(selected_files.getText() + "\n" + new Helper(getApplicationContext()).getNameFromURI(uri));
                     }
                 }
                 else
@@ -239,11 +245,28 @@ public class FileActivity extends AppCompatActivity
                     stringUriList.add(resultData.getData().toString());
                     selected_files.setText(selected_files.getText() + " " + new Helper(getApplicationContext()).getNameFromURI(uri));
                 }
+                message_edittext.setEnabled(true);
 
                 /*ContentResolver contentResolver = getApplicationContext().getContentResolver();
                 MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
                 fileExtension = mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
                 Toast.makeText(FileActivity.this, fileExtension, Toast.LENGTH_SHORT).show();*/
+            }
+        }
+
+        if(requestCode == CHOOSE_APP && resultCode == Activity.RESULT_OK)
+        {
+            Toast.makeText(this, "ho", Toast.LENGTH_SHORT).show();
+            stringUriList = resultData.getStringArrayListExtra("apps");
+            if(stringUriList.size() != 0)
+            {
+                //send_files.setEnabled(true);
+            }
+
+            for(int i=0; i<stringUriList.size(); i++)
+            {
+                Uri uri = Uri.parse(stringUriList.get(i));
+                selected_files.setText(selected_files.getText() + "\n" + uri.toString());
             }
         }
     }
