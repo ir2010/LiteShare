@@ -101,7 +101,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     }
 
     @Override
-    public void onConnectionInfoAvailable(WifiP2pInfo info)
+    public  void onConnectionInfoAvailable(WifiP2pInfo info)
     {
         if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
@@ -117,6 +117,7 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
+        public static String macAdd=
         if(info.groupFormed && !DevicesActivity.isClient)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
