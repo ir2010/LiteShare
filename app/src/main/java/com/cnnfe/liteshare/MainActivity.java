@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                DevicesActivity.isClient = true;
                 startActivity(new Intent(MainActivity.this, FileActivity.class));
                 //overridePendingTransition(R.anim.silde_out_bottom, R.anim.silde_in_bottom);
             }
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         receive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DevicesActivity.isClient = false;
                 Intent intent = new Intent(MainActivity.this, DevicesActivity.class);
                 intent.putExtra("fileUri", "");
                 intent.putExtra("extension", "");

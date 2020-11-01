@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
+import com.cnnfe.liteshare.MainActivity;
 import com.cnnfe.liteshare.R;
 
 import java.io.File;
@@ -85,6 +86,7 @@ public class FileServerAsyncTask extends AsyncTask<Void, Void, String>
             showFileIntent.setDataAndType(uri, mimeType);
             showFileIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             context.startActivity(showFileIntent);
+            context.startActivity(new Intent(context, MainActivity.class));
         }
     }
 }
