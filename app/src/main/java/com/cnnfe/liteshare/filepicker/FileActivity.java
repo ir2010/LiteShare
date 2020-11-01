@@ -57,8 +57,6 @@ public class FileActivity extends AppCompatActivity
 
 
         send_files.setEnabled(false);
-
-
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -121,6 +119,7 @@ public class FileActivity extends AppCompatActivity
                 intent.putExtra("extension", fileExtension);
                 intent.putExtra("msg", message);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
