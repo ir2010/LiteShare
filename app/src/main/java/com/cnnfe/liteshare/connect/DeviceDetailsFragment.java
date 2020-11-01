@@ -1,7 +1,7 @@
 package com.cnnfe.liteshare.connect;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.net.wifi.WpsInfo;
@@ -20,9 +20,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.cnnfe.liteshare.R;
+import androidx.appcompat.app.AlertDialog;
 
-import java.util.ArrayList;
+import com.cnnfe.liteshare.R;
 
 //A fragment that manages a particular peer and allows interaction with device i.e. setting up network connection and transferring data.
 
@@ -32,9 +32,10 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     private WifiP2pDevice selectedDevice;
     private WifiP2pInfo info;
     private WifiP2pGroup group;
-    public static TextView statusText;
+    public static String macAdd;
 
     static ProgressDialog progressDialog = null;
+
 
     public DeviceDetailsFragment()
     {
@@ -52,7 +53,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
     {
         // Inflate the layout for this fragment
         mContentView = inflater.inflate(R.layout.fragment_device_details, container, false);
-        statusText = (TextView) mContentView.findViewById(R.id.status_text);
 
         /*if(!DevicesActivity.isClient)
         {
@@ -93,26 +93,46 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
             @Override
             public void onClick(View v) {
 
-                String msg = getActivity().getIntent().getStringExtra("msg");
-                if(DevicesActivity.stringUriList.size() != 0 || msg != "")
-                {
-                    //Uri uri = Uri.parse(DevicesActivity.uriString);
-                    sendFile(DevicesActivity.stringUriList, msg);
-                }
+             /*   AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Want to send using qr code?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent myIntent = new Intent(getActivity(),   QRActivity.class);
+                                startActivity(myIntent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+*/
+                                if(DevicesActivity.uriString != "")
+                                {
+                                    Uri uri = Uri.parse(DevicesActivity.uriString);
+                                    sendFile(uri);
+                                }
+           //                 }
+          //              });
+
             }
         });
 
         return mContentView;
     }
 
-    @SuppressLint("MissingPermission")
     @Override
-    public void onConnectionInfoAvailable(WifiP2pInfo info)
+    public  void onConnectionInfoAvailable(WifiP2pInfo info)
     {
+
+      /*  Intent myIntent = new Intent(getActivity(),   QRScannerActivity.class);
+        startActivity(myIntent);*/
+
+
+
         if (progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
 
         this.info = info;
+        this.getView().setVisibility(View.VISIBLE);
 
         // The owner IP is now known.
         TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
@@ -122,15 +142,15 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
         view.setText("Group Owner IP - " + ((info.groupOwnerAddress != null) ? info.groupOwnerAddress.getHostAddress(): "NULL"));
 
-        if(info.groupFormed && info.isGroupOwner)
+        macAdd=info.groupOwnerAddress.getHostAddress();
+        //storing mac address for qr
+
+        if(info.groupFormed && !DevicesActivity.isClient)
         {
-            this.getView().setVisibility(View.VISIBLE);
-            DevicesActivity.manager.requestGroupInfo(DevicesActivity.channel, this);
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
         else if(info.groupFormed)
         {
-            this.getView().setVisibility(View.VISIBLE);
             mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
         }
@@ -174,17 +194,17 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         view.setText(device.toString());
     }
 
-    private void sendFile(ArrayList<String> uriList, String msg)
+    private void sendFile(Uri uri)
     {
-        statusText.setText("Sending data!");
-        //Log.d(DevicesActivity.TAG, "Intent----------- " + uri);
+        TextView statusText = (TextView) mContentView.findViewById(R.id.status_text);
+        statusText.setText("Sending: " + uri);
+        Log.d(DevicesActivity.TAG, "Intent----------- " + uri);
 
         Intent serviceIntent = new Intent(getActivity(), FileTransferService.class);
 
         serviceIntent.setAction(FileTransferService.ACTION_SEND_FILE);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uriList);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_MESSAGE, msg);
-        serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
+        serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uri.toString());
+        //serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, group.groupOwnerAddress.getHostAddress());
 
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
@@ -201,23 +221,23 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         this.getView().setVisibility(View.VISIBLE);
 
         // The owner IP is now known.
-       /* TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
+        TextView view = (TextView) mContentView.findViewById(R.id.is_group_owner);
         view.setText(getResources().getString(R.string.group_owner_text) + ((this.group.isGroupOwner()) ? "yes": "no"));
 
         // InetAddress from WifiP2pInfo struct.
         view = (TextView) mContentView.findViewById(R.id.group_owner_ip);
-        view.setText("Group Owner MAC - " + ((this.group.getOwner() != null) ? this.group.getOwner().deviceAddress: "NULL"));
+        view.setText("Group Owner IP - " + ((this.group.getOwner() != null) ? this.group.getOwner(): "NULL"));
 
-        if(this.group.isGroupOwner())
+        /*if(this.group.groupFormed && this.group.isGroupOwner)
         {
             new FileServerAsyncTask(getActivity(), mContentView.findViewById(R.id.status_text)).execute();
         }
-        else
+        else if(this.group.groupFormed)
         {
             mContentView.findViewById(R.id.btn_send).setVisibility(View.VISIBLE);
             ((TextView) mContentView.findViewById(R.id.status_text)).setText(getResources().getString(R.string.client_text));
-        }*/
-        /*else
+        }
+        else
         {
             mContentView.findViewById(R.id.btn_send).setVisibility(View.GONE);
             //Toast.makeText(getActivity(), "Not connected", Toast.LENGTH_SHORT).show();

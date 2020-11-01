@@ -33,6 +33,7 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     public static boolean isClient = false;
     public static String fileExtension;
     public static ArrayList<String> stringUriList;
+    public static String uriString;
 
     static WifiP2pManager manager;                    //has methods that allow discover, request, and connect to peers
     static WifiP2pManager.Channel channel;            //to connect the application to the Wi-Fi P2P framework
