@@ -37,8 +37,7 @@ public class FileActivity extends AppCompatActivity
     //ArrayList<String> listOfIcons = new ArrayList<>();
     private static final int CHOOSE_FILE = 1;
 
-    Button docs, images, audios, videos, send_files;
-    ImageButton apps;
+    Button docs, images, audios, videos, send_files, apps;
     EditText message_edittext;
     String message = "", fileExtension= "";
     TextView selected_files;
@@ -54,15 +53,13 @@ public class FileActivity extends AppCompatActivity
         images = (Button) findViewById(R.id.images);
         audios = (Button) findViewById(R.id.audios);
         videos = (Button) findViewById(R.id.videos);
-        apps = (ImageButton) findViewById(R.id.apps);
+        apps = (Button) findViewById(R.id.apps);
         selected_files = (TextView) findViewById(R.id.selected_files);
         send_files = (Button) findViewById(R.id.send_file);
         message_edittext = (EditText) findViewById(R.id.edit_input);
 
 
         send_files.setEnabled(false);
-
-
         //If android version is greater than marshmallow
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -125,6 +122,7 @@ public class FileActivity extends AppCompatActivity
                 //intent.putExtra("extension", fileExtension);
                 intent.putExtra("msg", message);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

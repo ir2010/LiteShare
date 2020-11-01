@@ -13,99 +13,95 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/> -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/selected_files">
+ <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/apps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"
-            android:background="@color/zxing_transparent"
-            android:drawablePadding="5dp"
-            android:src="@drawable/apkicon"
-            android:text="Apps"
-            android:textAppearance="@style/TextAppearance.Button"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            android:tooltipText="Apps"
-            app:elevation="5dp" />
+     <Button
+         android:id="@+id/apps"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="left"
+         android:layout_marginLeft="40dp"
+         android:layout_marginTop="60dp"
+         android:background="@color/purple_200"
+         android:drawableTop="@drawable/apkicon"
+         android:drawablePadding="10dp"
+         android:text="Apps"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
-        <Button
-            android:id="@+id/docs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="80dp"
-            android:layout_marginRight="40dp"
-            android:background="@color/purple_200"
-            android:drawableTop="@drawable/fileicon"
-            android:drawablePadding="50dp"
-            android:text="Docs"
-            android:textAppearance="@style/TextAppearance.Button"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            app:backgroundTint="@color/purple_200"
-            app:elevation="5dp" />
 
-        <Button
-            android:id="@+id/images"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="310dp"
-            android:background="@android:color/holo_purple"
-            android:drawableTop="@drawable/imicon"
-            android:drawablePadding="50dp"
-            android:text="Images"
-            android:textAppearance="@style/TextAppearance.Button"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            app:backgroundTint="@color/purple_200"
-            app:elevation="5dp" />
+     <Button
+         android:id="@+id/docs"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_marginTop="60dp"
+         android:layout_marginRight="40dp"
+         android:background="@color/purple_200"
+         android:drawableTop="@drawable/fileicon"
+         android:drawablePadding="50dp"
+         android:text="Docs"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
-        <Button
-            android:id="@+id/audios"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="310dp"
-            android:layout_marginRight="40dp"
-            android:background="@android:color/holo_purple"
-            android:drawableTop="@drawable/musicicon"
-            android:drawablePadding="50dp"
-            android:text="Audios"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            app:backgroundTint="@color/purple_200"
-            app:elevation="5dp" />
+     <Button
+         android:id="@+id/images"
+         android:layout_width="100dp"
+         android:layout_height="100dp"
+         android:layout_gravity="left"
+         android:layout_marginLeft="40dp"
+         android:layout_marginTop="250dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/imicon"
+         android:drawablePadding="50dp"
+         android:text="Images"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
-        <Button
-            android:id="@+id/videos"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="200dp"
-            android:background="@android:color/holo_purple"
+     <Button
+         android:id="@+id/audios"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_marginTop="250dp"
+         android:layout_marginRight="40dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/musicicon"
+         android:drawablePadding="50dp"
+         android:text="Audios"
+         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+         android:textColor="@color/black"
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
 
-            android:drawableTop="@drawable/videoicon"
-            android:drawablePadding="50dp"
-            android:text="Videos"
-            android:textAppearance="@style/TextAppearance.Button"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            app:backgroundTint="@color/purple_200"
-            app:elevation="5dp" />
-    </FrameLayout>
+     <Button
+         android:id="@+id/videos"
+         android:layout_width="100dp"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal"
+         android:layout_marginTop="150dp"
+         android:background="@android:color/holo_purple"
+         android:drawableTop="@drawable/videoicon"
+         android:drawablePadding="50dp"
+         android:text="Videos"
+         android:textAppearance="@style/TextAppearance.Button"
+         android:textColor="@color/black"
+         android:textStyle="italic"
+         app:backgroundTint="@color/purple_200"
+         app:elevation="5dp" />
+ </FrameLayout>
 
 
 
@@ -141,6 +137,7 @@
         android:layout_weight="1.0"
         android:layout_marginBottom="120dp"
         android:hint="Got something to say ?" />
+
     <Button
         android:id="@+id/send_file"
         android:layout_width="wrap_content"
