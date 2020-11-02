@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.connect;
+package com.cnnfe.liteshare.encryption;
 
 public class CryptoException extends Exception {
 

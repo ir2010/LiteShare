@@ -1,4 +1,4 @@
-package com.cnnfe.liteshare.connect;
+package com.cnnfe.liteshare.encryption;
 
 import java.io.File;
 public class CryptoUtilsTest {
