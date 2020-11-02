@@ -100,19 +100,19 @@ public class DevicesActivity extends AppCompatActivity implements WifiP2pManager
     @Override
     protected void onStop() {
         super.onStop();
-        manager.removeGroup(channel, new WifiP2pManager.ActionListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(DevicesActivity.this, "Group removed!", Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Group removed!");
-            }
-
-            @Override
-            public void onFailure(int reason) {
-
-            }
-        });
-        Helper.deletePersistentGroups(manager, channel);
+//        manager.removeGroup(channel, new WifiP2pManager.ActionListener() {
+//            @Override
+//            public void onSuccess() {
+//                Toast.makeText(DevicesActivity.this, "Group removed!", Toast.LENGTH_SHORT).show();
+//                Log.d(TAG, "Group removed!");
+//            }
+//
+//            @Override
+//            public void onFailure(int reason) {
+//
+//            }
+//        });
+        //Helper.deletePersistentGroups(manager, channel);
     }
 
     @Override

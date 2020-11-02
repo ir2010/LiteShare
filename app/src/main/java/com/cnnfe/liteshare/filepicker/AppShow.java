@@ -43,7 +43,7 @@ public class AppShow extends ListActivity
             public void onClick(View v) {
                 Intent intent= new Intent();
                 intent.putStringArrayListExtra("apps", uriList);
-                Toast.makeText(AppShow.this, "done", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AppShow.this, "done", Toast.LENGTH_SHORT).show();
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

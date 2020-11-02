@@ -25,8 +25,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.LiteShare">
-
-        <!-- Used for transferring files  after a successful connection -->
+        <activity android:name=".qr_connect.QRScannerActivity"></activity>
+        <activity android:name=".qr_connect.QRActivity" /> <!-- Used for transferring files  after a successful connection -->
         <service
             android:name=".connect.FileTransferService"
             android:enabled="true"
@@ -40,7 +40,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <meta-data
@@ -58,7 +58,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

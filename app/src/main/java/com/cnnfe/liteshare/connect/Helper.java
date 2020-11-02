@@ -33,7 +33,7 @@ public class Helper
 {
     Context context;
     static String msg;
-    static int passwordAtClient;
+    int passwordAtClient;
     int passwordAtServer;
 
     public Helper(Context context) {
@@ -99,8 +99,6 @@ public class Helper
 
     private void writePassword(DataOutputStream outputStream) throws IOException
     {
-        Random random = new Random();
-        passwordAtClient = random.nextInt(8999) + 1000;
         //createPassword();
 
         outputStream.writeInt(passwordAtClient);
@@ -150,13 +148,13 @@ public class Helper
         try
         {
             passwordAtServer = inputStream.readInt();
-            //if(checkPassword()){
+           // if(checkPassword()){
             msg = inputStream.readUTF();
             Log.d(DevicesActivity.TAG, passwordAtServer + " "+msg);
             boolean res = receiveFiles(inputStream);
             inputStream.close();
             return res;
-        //}
+         // }
         }
         catch (IOException e)
         {
@@ -309,7 +307,8 @@ public class Helper
                     }
                 });
 
-        alertDialog.show();
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
         String password = input.getText().toString();
 
         return password.equals("") ? false: passwordAtServer == Integer.valueOf(password);
@@ -317,11 +316,17 @@ public class Helper
 
     public void createPassword()
     {
+        Random random = new Random();
+        passwordAtClient = random.nextInt(8999) + 1000;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(passwordAtClient)
-                .setTitle("Password is: ");
+        builder.setMessage(String.valueOf(passwordAtClient))
+                .setTitle("Password is: ").setCancelable(true).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 }

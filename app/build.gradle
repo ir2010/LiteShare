@@ -31,6 +31,7 @@ android {
         main {
             res.srcDirs =
                     [
+                            'src/main/res/layouts/qr_connect',
                             'src/main/res/layouts/list_of_files',
                             'src/main/res/layouts/main',
                             'src/main/res/layouts/connect_devices',
@@ -63,7 +64,9 @@ dependencies {
     implementation 'com.genonbeta.android:framework:1.0.2.8'
     implementation 'com.genonbeta.android:gdatabase:1.0.2.6.1'
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
-    implementation 'com.velitasali.tools.android:zxing:3.6.3'
+
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'androidx.annotation:annotation:1.1.0'

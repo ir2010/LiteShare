@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+
+        android:id="@+id/bar_code"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="50dp"
+        android:adjustViewBounds="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_completion"
+        android:layout_marginBottom="19dp"
+        android:text="Scan the QR Code on other device. Click on 'Done' when done!" />
+
+    <Button
+        android:id="@+id/button_completion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bar_code"
+        android:gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:text="Done"
+        android:textColor="#fff" />
+
+</RelativeLayout>

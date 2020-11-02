@@ -121,7 +121,7 @@ public class FileActivity extends AppCompatActivity
             public void onClick(View v) {
 
                 Intent intent = new Intent(FileActivity.this, DevicesActivity.class);
-                intent.putExtra("fileUri", stringUriList);
+                intent.putStringArrayListExtra("fileUri", stringUriList);
                 //intent.putExtra("extension", fileExtension);
                 intent.putExtra("msg", message);
                 startActivity(intent);
@@ -256,7 +256,7 @@ public class FileActivity extends AppCompatActivity
 
         if(requestCode == CHOOSE_APP && resultCode == Activity.RESULT_OK)
         {
-            Toast.makeText(this, "ho", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "ho", Toast.LENGTH_SHORT).show();
             stringUriList = resultData.getStringArrayListExtra("apps");
             if(stringUriList.size() != 0)
             {

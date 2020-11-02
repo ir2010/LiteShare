@@ -15,7 +15,7 @@
     <string name="no">no</string>
     <string name="client_text">This device will act as a client. Click on Send button..</string>
     <string name="empty_message">Make sure WiFi is turned on and then click on discover button on Action Bar</string>
-    <string name="p2p_off_warning">Enable WiFi from Power button on action bar above or from system settings</string>
+    <string name="p2p_off_warning">Enable WiFi from action bar above or from system settings</string>
     <string name="group_owner_text">"Am I the Group Owner? "</string>
     <string name="label_me">ME</string>
     <string name="label_peers">PEERS</string>
