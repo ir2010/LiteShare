@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cnnfe.liteshare.R;
+import com.cnnfe.liteshare.encryption.CryptoException;
+import com.cnnfe.liteshare.encryption.CryptoUtils;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -35,6 +37,7 @@ public class Helper
     static String msg;
     int passwordAtClient;
     int passwordAtServer;
+    private final String keyForEncryption = "Cool Name Not Found Exception";
 
     public Helper(Context context) {
         this.context = context;
@@ -121,6 +124,7 @@ public class Helper
         {
             //name of file
             Uri uri = Uri.parse(uriList.get(i));
+
             String fileName = getNameFromURI(uri);
             outputStream.writeUTF(fileName);
             outputStream.flush();
@@ -131,6 +135,15 @@ public class Helper
             outputStream.flush();
 
             //content of file
+            //encryption
+            File file = new File(uri.getPath());
+            File encryptedFile = new File(uri.getPath());
+            try {
+                CryptoUtils.encrypt(keyForEncryption, file, encryptedFile);
+            } catch (CryptoException e) {
+                e.printStackTrace();
+            }
+
             byte buf[] = new byte[1024];
             int len;
             InputStream inputStream = context.getContentResolver().openInputStream(uri);
@@ -181,6 +194,7 @@ public class Helper
 
             Long fileSize = inputStream.readLong();
 
+
             byte buf[] = new byte[1024];
             int len;
             FileOutputStream outputStream = new FileOutputStream(f);
@@ -188,6 +202,14 @@ public class Helper
             {
                 outputStream.write(buf,0,len);
                 fileSize -= len;
+            }
+
+            File decryptedFile = new File(f.getAbsolutePath());
+            try {
+                CryptoUtils.decrypt(keyForEncryption, f, decryptedFile);
+            } catch (CryptoException e) {
+                Toast.makeText(context, "Some error occurred!", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
             }
             outputStream.close();
         }
@@ -211,12 +233,16 @@ public class Helper
 
     private long getFileSize(Uri uri) {
 
-        Long size;
+        Long size = Long.valueOf(0);
         Cursor c = context.getContentResolver().query(uri, null, null, null, null);
-        int sizeIndex = c.getColumnIndex(OpenableColumns.SIZE);
-        c.moveToFirst();
-        size = c.getLong(sizeIndex);
-        c.close();
+        if(c != null)
+        {
+            int sizeIndex = c.getColumnIndex(OpenableColumns.SIZE);
+            c.moveToFirst();
+            size = c.getLong(sizeIndex);
+            c.close();
+        }
+
         return size;
     }
 
