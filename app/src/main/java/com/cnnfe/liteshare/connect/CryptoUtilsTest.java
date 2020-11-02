@@ -3,6 +3,8 @@ package com.cnnfe.liteshare.connect;
 import java.io.File;
 public class CryptoUtilsTest {
     public static void main(String[] args) {
+
+        //working
         String key = "Mary has one cat1";
         File inputFile = new File("document.txt");
         File encryptedFile = new File("document.encrypted");
