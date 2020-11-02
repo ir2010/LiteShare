@@ -251,7 +251,6 @@ public class DeviceDetailsFragment extends Fragment implements WifiP2pManager.Co
         serviceIntent.putExtra(FileTransferService.EXTRAS_FILE_PATH, uriList);
         serviceIntent.putExtra(FileTransferService.EXTRAS_MESSAGE, msg);
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_ADDRESS, info.groupOwnerAddress.getHostAddress());
-
         serviceIntent.putExtra(FileTransferService.EXTRAS_GROUP_OWNER_PORT, 8988);
 
         FileTransferService.enqueueWork(getActivity(), serviceIntent);
