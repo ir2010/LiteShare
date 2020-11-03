@@ -136,13 +136,13 @@ public class Helper
 
             //content of file
             //encryption
-            File file = new File(uri.getPath());
+            /*File file = new File(uri.getPath());
             File encryptedFile = new File(uri.getPath());
             try {
                 CryptoUtils.encrypt(keyForEncryption, file, encryptedFile);
             } catch (CryptoException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             byte buf[] = new byte[1024];
             int len;
@@ -204,13 +204,13 @@ public class Helper
                 fileSize -= len;
             }
 
-            File decryptedFile = new File(f.getAbsolutePath());
+           /* File decryptedFile = new File(f.getAbsolutePath());
             try {
                 CryptoUtils.decrypt(keyForEncryption, f, decryptedFile);
             } catch (CryptoException e) {
                 Toast.makeText(context, "Some error occurred!", Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
-            }
+            }*/
             outputStream.close();
         }
         return noOfFiles != 0;
